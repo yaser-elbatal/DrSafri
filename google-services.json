@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "653251015585",
+    "firebase_url": "https://drtawsildash.firebaseio.com",
+    "project_id": "drtawsildash",
+    "storage_bucket": "drtawsildash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653251015585:android:dc4b2d4f0cac917ee291e0",
+        "android_client_info": {
+          "package_name": "com.Awmer.DashboardDrTawsel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653251015585-690j7uiggt9aqjjtqk147piov4n384r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWzBwZsT0r3CES8oMPfPvJDjvSxyP4LHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653251015585-690j7uiggt9aqjjtqk147piov4n384r1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
