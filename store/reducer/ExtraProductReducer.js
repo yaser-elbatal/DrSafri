@@ -2,7 +2,7 @@ import { Get_Extra_Product, Add_Extra_Product, Edit_Extra_Product, Delete_Extra_
 
 const initialstate = {
     ExtraProduct: [
-        { id: '', name_ar: '', name_en: " ", price: '' },
+        { id: '', name_ar: '', name_en: " ", price: 0 },
     ]
 };
 

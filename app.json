@@ -28,7 +28,8 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.Awmer.DashboardDrTawsel",
+      "bundleIdentifier": "com.Awmer.DrSafri",
+      "googleServicesFile": "./google-services.json",
       "buildNumber": "1.0.0",
       "supportsTablet": true,
       "infoPlist": {

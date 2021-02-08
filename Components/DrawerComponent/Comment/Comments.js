@@ -12,6 +12,7 @@ import { GetRatings } from '../../../store/action/CommentsAction';
 import StarRating from 'react-native-star-rating';
 import HomeHeader from '../../../common/HomeHeader';
 import * as Animatable from 'react-native-animatable';
+import { useIsFocused } from '@react-navigation/native';
 
 function Comments({ navigation }) {
 
@@ -21,14 +22,19 @@ function Comments({ navigation }) {
     const lang = useSelector(state => state.lang.language);
     const Comments = useSelector(state => state.Comments.comments ? state.Comments.comments.data : [])
     const extra = useSelector(state => state.Comments.extra ? state.Comments.extra : [])
+    const isFocused = useIsFocused();
 
 
 
 
     useEffect(() => {
-        setSpinner(true)
-        dispatch(GetRatings(token, lang)).then(() => setSpinner(false))
-    }, [])
+        if (isFocused) {
+            setSpinner(true)
+            dispatch(GetRatings(token, lang)).then(() => setSpinner(false))
+
+        }
+
+    }, [isFocused])
 
 
 

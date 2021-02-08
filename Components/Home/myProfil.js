@@ -93,7 +93,7 @@ function myProfil({ navigation }) {
                             <View style={styles.Line}></View>
 
                             <View style={styles.Wrab}>
-                                <Text style={styles.user}>{user.provider.city}</Text>
+                                <Text style={styles.user}>{user.address}</Text>
                             </View>
 
                             <View style={styles.Line}></View>

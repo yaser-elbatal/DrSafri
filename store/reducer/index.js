@@ -15,7 +15,8 @@ import Banner from './OffersReducer';
 import Orders from './OrdersReducer';
 import Comments from './CommentsReducer'
 import notifications from './NotificationsReducer';
-import reborts from './RebortChartReducer'
+import reborts from './RebortChartReducer';
+import SpecOrders from './SpecialOrderReducer'
 
 
 
@@ -35,5 +36,6 @@ export default multiReducres = combineReducers({
     Orders,
     Comments,
     notifications,
-    reborts
+    reborts,
+    SpecOrders
 });

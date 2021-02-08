@@ -24,7 +24,6 @@ function EditProd({ navigation, route }) {
     const [nameAR, setNameAr] = useState('');
     const [nameEN, setNameEN] = useState('')
 
-    console.log(ProductDetA);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {

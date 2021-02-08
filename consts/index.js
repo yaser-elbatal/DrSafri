@@ -1,3 +1,3 @@
 export default {
-    url: 'https://drtawsel.aait-sa.com/api/v1/'
+    url: 'https://safaria1.aait-sa.com/api/v1/'
 }

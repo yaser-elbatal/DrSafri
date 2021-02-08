@@ -24,7 +24,7 @@ function AllOrders({ navigation, route }) {
     const [Search, setSearch] = useState('');
 
     const [spinner, setSpinner] = useState(true);
-
+    console.log(OrderRequest);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -35,7 +35,6 @@ function AllOrders({ navigation, route }) {
         return unsubscribe;
     }, [navigation, route])
 
-    console.log(OrderRequest.data);
 
     const handleChange = (e) => {
 

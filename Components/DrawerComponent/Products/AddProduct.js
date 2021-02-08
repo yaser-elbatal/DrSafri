@@ -44,7 +44,7 @@ function AddProduct({ navigation }) {
     ])
     const [ProductnameExtraAR, setProductnameExtraAR] = useState('');
     const [ProductnameExtraEn, setProductnameExtraEn] = useState('')
-    const [priceProductExtra, setPricePrdouctExtra] = useState('');
+    const [priceProductExtra, setPricePrdouctExtra] = useState('0');
     const [ExProdId, setExProdId] = useState(0);
 
 
@@ -82,6 +82,7 @@ function AddProduct({ navigation }) {
     const [detailesEn, setDetailesEn] = useState('')
     const [MenueId, setMenue] = useState('')
     const [available, setavailable] = useState(1);
+    const [prebriation, setprebriation] = useState('')
 
     const [base64, setBase64] = useState(null);
     const [userImage, setUserImage] = useState(null);
@@ -120,16 +121,18 @@ function AddProduct({ navigation }) {
         let Det = detailesEn == '' ? i18n.t('EnterDetailesEn') : null;
         // let Kiloes = availableKilos == '' ? 'Enter availableKilos' : null;
         let MenueIdErr = MenueId == '' ? i18n.t('SelectMenue') : null;
+        let prebtimeerr = prebriation == '' ? i18n.t('preparationTime') : null;
 
 
-        return nameErr || nameEnErr || SelectChoice || piceErr || baseErr || quantityErr || DetErr || Det || MenueIdErr
+
+        return nameErr || nameEnErr || SelectChoice || piceErr || baseErr || quantityErr || DetErr || Det || MenueIdErr || prebtimeerr
     }
 
     const Add_Product = () => {
         let val = _validate();
         if (!val) {
             setSpinner(true)
-            dispatch(Add_Products(token, lang, nameAR, nameEN, detailesAr, detailesEn, available, availableKilos, Discount, quantity, small_price, mid_price, large_price, MenueId, base64, navigation, ExtraProduct)).then(() => setSpinner(false))
+            dispatch(Add_Products(token, lang, nameAR, nameEN, detailesAr, detailesEn, available, availableKilos, Discount, quantity, large_price, prebriation, MenueId, base64, navigation, ExtraProduct)).then(() => setSpinner(false))
 
         }
 
@@ -159,6 +162,7 @@ function AddProduct({ navigation }) {
             setavailableKilos('');
             setQuantity('');
             setDetailesAr('');
+            setprebriation('')
             setDetailesEn('');
             setProductExtra([])
             GetExtraProduct()
@@ -184,7 +188,7 @@ function AddProduct({ navigation }) {
 
     const _pickImage = async () => {
 
-        askPermissionsAsync();
+        await askPermissionsAsync()
         let result = await ImagePicker.launchImageLibraryAsync({
             aspect: [4, 3],
             base64: true
@@ -217,9 +221,8 @@ function AddProduct({ navigation }) {
 
         let nameErr = validateUserName(ProductnameExtraAR)
         let nameEnErr = validateUserName(ProductnameExtraEn)
-        let piceErr = priceProductExtra == '' ? i18n.t('EnterPrice') : null;
 
-        return nameErr || nameEnErr || piceErr
+        return nameErr || nameEnErr
     }
 
 
@@ -250,7 +253,7 @@ function AddProduct({ navigation }) {
                 Alert.alert('Enter Extra Data.');
             }
             setEditMaodVisible(false)
-            setPricePrdouctExtra('');
+            setPricePrdouctExtra('0');
             setProductnameExtraAR('');
             setProductnameExtraEn('');
 
@@ -277,7 +280,7 @@ function AddProduct({ navigation }) {
 
     const clearData = () => {
         setExProdId('');
-        setPricePrdouctExtra('')
+        setPricePrdouctExtra('0')
         setProductnameExtraAR('')
         setProductnameExtraEn('')
     }
@@ -325,85 +328,15 @@ function AddProduct({ navigation }) {
 
                     />
 
-                    <Text style={{ marginStart: 20, fontFamily: 'flatMedium', fontSize: 16, alignSelf: 'flex-start' }}>{i18n.t('addSize')}</Text>
-                    <View style={{ alignItems: 'center', marginTop: 10, borderWidth: 1, height: 50, marginHorizontal: "5%", borderColor: '#E0E0E0', borderRadius: 5, flexDirection: 'row' }}>
 
-                        {
-                            Sizes.map((size, index) => {
-                                return (
-
-                                    <View key={index.toString()} style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 30, flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => { setSelectedRadio(size.id) }} style={{ flexDirection: 'row', alignItems: 'center', }}>
-                                            <View style={{
-                                                height: 15,
-                                                width: 15,
-                                                borderRadius: 12,
-                                                borderWidth: 2,
-                                                borderColor: selectedRadion === size.id ? Colors.sky : Colors.fontNormal,
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                alignSelf: 'center',
-
-                                            }}>
-                                                {
-                                                    selectedRadion === size.id ?
-                                                        <View style={{
-                                                            height: 6,
-                                                            width: 6,
-                                                            borderRadius: 6,
-                                                            backgroundColor: Colors.sky,
-                                                        }} />
-                                                        : null
-                                                }
-                                            </View>
-                                            <Text style={[styles.sText, { color: selectedRadion === size.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1 }]}>{size.name}</Text>
-
-                                        </TouchableOpacity>
-
-
-                                    </View>
-                                )
-                            })
-
-                        }
-
-                    </View>
-
-                    {
-                        selectedRadion === 1 ?
-                            <InputIcon
-                                styleCont={{ marginTop: 20 }}
-                                label={i18n.t('price')}
-                                placeholder={i18n.t('price')}
-
-                                onChangeText={(e) => { setlarge_price(e); handaleChange(e, 1) }}
-                                keyboardType='numeric'
-                                value={large_price}
-                            />
-                            :
-                            selectedRadion === 2 ?
-                                <InputIcon
-                                    styleCont={{ marginTop: 20 }}
-                                    placeholder={`${i18n.t('MidlePrice')} (${i18n.t('optional')})`}
-                                    label={`${i18n.t('MidlePrice')} (${i18n.t('optional')})`}
-                                    onChangeText={(e) => { setmid_price(e); handaleChange(e, 3) }}
-                                    value={mid_price}
-                                    keyboardType='numeric'
-                                />
-                                :
-                                selectedRadion === 3 ?
-                                    <InputIcon
-                                        styleCont={{ marginTop: 20 }}
-                                        label={`${i18n.t('SmallPrice')} (${i18n.t('optional')})`}
-                                        placeholder={`${i18n.t('SmallPrice')} (${i18n.t('optional')})`}
-
-                                        onChangeText={(e) => { setsmall_price(e); handaleChange(e, 2) }}
-                                        value={small_price}
-                                        keyboardType='numeric'
-                                    />
-                                    : null
-
-                    }
+                    <InputIcon
+                        styleCont={{ marginTop: 0 }}
+                        label={i18n.t('price')}
+                        placeholder={i18n.t('price')}
+                        onChangeText={(e) => { setlarge_price(e); }}
+                        keyboardType='numeric'
+                        value={large_price}
+                    />
 
 
 
@@ -438,9 +371,18 @@ function AddProduct({ navigation }) {
                         value={quantity}
                     />
 
+                    <InputIcon
+                        styleCont={{ marginTop: 0 }}
+                        label={i18n.t('preparationTime')}
+                        placeholder={i18n.t('preparationTime')}
+                        keyboardType='numeric'
+                        onChangeText={(e) => setprebriation(e)}
+                        value={prebriation}
+                    />
+
                     <View style={{ height: width * .14, marginHorizontal: '4%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
-                        <View style={{ paddingEnd: 150, fontFamily: 'flatMedium', paddingStart: 10 }}>
-                            <Text style={{ color: Colors.inputTextMainColor, fontFamily: 'flatMedium', }}>{i18n.t('available')}</Text>
+                        <View style={{ paddingEnd: 150, fontFamily: 'flatMedium', paddingStart: 15 }}>
+                            <Text style={{ color: Colors.fontNormal, fontFamily: 'flatMedium', }}>{i18n.t('available')}</Text>
                         </View>
                         {
                             data.map((item, index) => {
@@ -468,7 +410,7 @@ function AddProduct({ navigation }) {
                                                     : null
                                             }
                                         </View>
-                                        <Text style={[styles.sText, { color: available === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1 }]}>{item.title}</Text>
+                                        <Text style={[styles.sText, { color: available === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, padding: 7 }]}>{item.title}</Text>
 
                                     </TouchableOpacity>
 
@@ -480,27 +422,15 @@ function AddProduct({ navigation }) {
 
                     </View>
 
-                    {/* <TouchableOpacity onPress={_pickImage} >
-                        <InputIcon
-                            styleCont={{ marginTop: 20 }}
-                            label={i18n.t('ProdPice')}
-                            placeholder={i18n.t('ProdPice')}
-                            onChangeText={(e) => setUserImage(e)}
-                            value={userImage}
-                            editable={false}
-                            imgStyle={{ width: 25, height: 25, bottom: 5 }}
-                            image={require('../../../assets/Images/camera_gray.png')}
-                            onPress={_pickImage}
-                        />
-                    </TouchableOpacity> */}
 
 
-                    <TouchableOpacity onPress={_pickImage} style={{ height: width * .14, flexDirection: 'row', overflow: 'hidden', marginHorizontal: "4%", borderWidth: 1, borderColor: Colors.InputColor, borderRadius: 5, alignItems: 'center', justifyContent: 'space-between', paddingEnd: 20, marginTop: 15 }}>
+
+                    <TouchableOpacity onPress={_pickImage} style={{ height: width * .14, flexDirection: 'row', overflow: 'hidden', marginHorizontal: "4%", borderWidth: 1, borderColor: Colors.InputColor, borderRadius: 5, alignItems: 'center', justifyContent: 'space-between', paddingEnd: 20, marginTop: 15, paddingStart: 15 }}>
                         {
                             userImage ?
-                                <Text style={{ color: Colors.InputColor, fontFamily: 'flatMedium', fontSize: 12 }} numberOfLines={1}>{userImage}</Text>
+                                <Text style={{ color: Colors.fontNormal, fontFamily: 'flatMedium', fontSize: 12 }} numberOfLines={1}>{userImage}</Text>
                                 :
-                                <Text style={{ color: Colors.InputColor, fontFamily: 'flatMedium', fontSize: 12 }}>{i18n.t('ProdPice')}</Text>
+                                <Text style={{ color: Colors.fontNormal, fontFamily: 'flatMedium', fontSize: 12 }}>{i18n.t('ProdPice')}</Text>
 
 
                         }
@@ -514,7 +444,7 @@ function AddProduct({ navigation }) {
                             placeholder={i18n.t('menue')}
                             data={MenueData}
                             fontSize={16}
-                            itemTextStyle={{ fontFamily: 'flatMedium' }}
+                            itemTextStyle={{ fontFamily: 'flatMedium', color: Colors.fontNormal }}
                             lineWidth={0}
                             containerStyle={{ width: '95%', paddingHorizontal: 5, bottom: 10, }}
                             animationDuration={0}

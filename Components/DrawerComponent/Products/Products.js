@@ -65,23 +65,22 @@ function Products({ navigation }) {
 
 
     useEffect(() => {
-
-
-        const unsubscribe = navigation.addListener('focus', () => {
-
-            setLoader(true)
-            console.log('isFocusedss,',);
+        setpage(1)
+        if (isFocused) {
             setpage(1)
-            dispatch(GetProducts(token, lang, page))
-            dispatch(MenueInfo(lang, token))
-                .then(() => setLoader(false))
+            setLoader(true)
+            setpage(1)
+            dispatch(GetProducts(token, lang, page)).then(() => dispatch(MenueInfo(lang, token)).then(() => setLoader(false))
+            )
 
 
-        })
-        return unsubscribe
+
+        }
 
 
-    }, []);
+
+
+    }, [isFocused]);
 
 
 

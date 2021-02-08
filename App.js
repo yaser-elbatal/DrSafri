@@ -44,7 +44,7 @@ export default function App() {
 
 
     if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('DrTawsel', {
+      Notifications.setNotificationChannelAsync('Drsafri', {
         name: 'E-mail notifications',
         importance: Notifications.AndroidImportance.HIGH,
         sound: true, // <- for Android 8.0+, see channelId property below

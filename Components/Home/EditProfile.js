@@ -21,7 +21,7 @@ function EditProfile({ navigation }) {
 
     const [nameEN, setNameEN] = useState(user.name)
     const [email, setemail] = useState(user.email)
-    const [city, setCity] = useState(user.provider.city)
+    const [city, setCity] = useState(user.address)
     const [phone, setPhone] = useState(user.phone)
     const [base64, setBase64] = useState(null);
     const [userImage, setUserImage] = useState(user.avatar);

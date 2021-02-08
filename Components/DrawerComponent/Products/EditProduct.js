@@ -54,12 +54,13 @@ const EditProduct = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const [MenueId, setMenue] = useState(ProductDet.menu_id)
     const [EditMaodVisible, setEditMaodVisible] = useState(false);
+    const [prebriation, setprebriation] = useState(ProductDet.time)
 
     const [base64, setBase64] = useState(null);
     const [userImage, setUserImage] = useState(ProductDet.image);
 
 
-
+    console.log(ProductDet);
 
     useEffect(() => {
 
@@ -75,13 +76,14 @@ const EditProduct = ({ navigation, route }) => {
             setPrice(`${ProductDet.price}`),
             setsmall_price(`${ProductDet.small_price}`),
             setmid_price(`${ProductDet.mid_price}`),
-            setlarge_price(`${ProductDet.large_price}`),
+            setlarge_price(`${ProductDet.price}`),
             setavailableKilos(`${ProductDet.available_kilos}`),
             setDiscount(`${ProductDet.discount}`),
             setQuantity(`${ProductDet.quantity}`),
             setDetailesAr(ProductDet.details_ar),
             setDetailesEn(ProductDet.details_en),
             setavailable(`${ProductDet.available}`),
+            setprebriation(`${ProductDet.time}`),
             setMenue(ProductDet.menu_id)
         return unsubscribe;
 
@@ -144,9 +146,10 @@ const EditProduct = ({ navigation, route }) => {
         let Det = detailesEn == '' ? i18n.t('EnterDetailesEn') : null
         // let Kiloes = availableKilos == '' ? 'Enter availableKilos' : null;
         let MenueIdErr = MenueId == '' ? i18n.t('SelectMenue') : null
+        let prebtimeerr = prebriation == '' ? i18n.t('preparationTime') : null;
 
 
-        return nameErr || nameEnErr || piceErr || quantityErr || DetErr || Det || MenueIdErr
+        return nameErr || nameEnErr || piceErr || quantityErr || DetErr || Det || MenueIdErr || prebtimeerr
     }
 
 
@@ -154,7 +157,7 @@ const EditProduct = ({ navigation, route }) => {
         let val = _validate()
         if (!val) {
             setSpinner(true)
-            dispatch(EditProducts(token, lang, ProductsId, nameAR, nameEN, available, detailesAr, detailesEn, availableKilos, Discount, quantity, MenueId, small_price, mid_price, large_price, base64, ProductsExtras, navigation)).then(() => setSpinner(false))
+            dispatch(EditProducts(token, lang, ProductsId, nameAR, nameEN, available, detailesAr, detailesEn, availableKilos, Discount, quantity, MenueId, large_price, base64, ProductsExtras, prebriation, navigation)).then(() => setSpinner(false))
         }
         else {
             setSpinner(false);
@@ -231,7 +234,6 @@ const EditProduct = ({ navigation, route }) => {
     const user = useSelector(state => state.auth.user.data);
 
 
-    console.log(user);
 
 
 
@@ -306,82 +308,16 @@ const EditProduct = ({ navigation, route }) => {
 
                     />
 
-                    <Text style={{ marginStart: 22, fontFamily: 'flatMedium', fontSize: 16, alignSelf: 'flex-start' }}>{i18n.t('addSize')}</Text>
-                    <View style={{ alignItems: 'center', marginTop: 10, borderWidth: 1, height: 50, marginHorizontal: "5%", borderColor: '#E0E0E0', borderRadius: 5, flexDirection: 'row' }}>
 
-                        {
-                            Sizes.map((size, index) => {
-                                return (
+                    <InputIcon
+                        styleCont={{ marginTop: 0 }}
+                        label={i18n.t('price')}
+                        placeholder={i18n.t('price')}
+                        onChangeText={(e) => { setlarge_price(e); }}
+                        keyboardType='numeric'
+                        value={large_price}
+                    />
 
-                                    <View key={'_' + index} style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 30, flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => { setSelectedRadio(size.id) }} style={{ flexDirection: 'row', alignItems: 'center', }}>
-                                            <View style={{
-                                                height: 15,
-                                                width: 15,
-                                                borderRadius: 12,
-                                                borderWidth: 2,
-                                                borderColor: selectedRadion === size.id ? Colors.sky : Colors.fontNormal,
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                alignSelf: 'center',
-
-                                            }}>
-                                                {
-                                                    selectedRadion === size.id ?
-                                                        <View style={{
-                                                            height: 6,
-                                                            width: 6,
-                                                            borderRadius: 6,
-                                                            backgroundColor: Colors.sky,
-                                                        }} />
-                                                        : null
-                                                }
-                                            </View>
-                                            <Text style={[styles.sText, { color: selectedRadion === size.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1 }]}>{size.name}</Text>
-
-                                        </TouchableOpacity>
-
-
-                                    </View>
-                                )
-                            })
-
-                        }
-
-                    </View>
-
-                    {
-                        selectedRadion === 1 ?
-
-                            <InputIcon
-                                styleCont={{ marginTop: 20 }}
-                                label={i18n.t('BigPrice')}
-                                placeholder={i18n.t('BigPrice')}
-                                onChangeText={(e) => { setlarge_price(e); }}
-                                keyboardType='numeric'
-                                value={large_price}
-                            />
-                            : selectedRadion === 3 ?
-                                <InputIcon
-                                    styleCont={{ marginTop: 20 }}
-                                    label={i18n.t('SmallPrice')}
-                                    placeholder={i18n.t('SmallPrice')}
-                                    onChangeText={(e) => { setsmall_price(e); }}
-                                    value={small_price}
-                                    keyboardType='numeric'
-                                />
-
-                                : selectedRadion === 2 ?
-                                    <InputIcon
-                                        styleCont={{ marginTop: 20 }}
-                                        label={i18n.t('MidlePrice')}
-                                        placeholder={i18n.t('MidlePrice')}
-                                        onChangeText={(e) => { setmid_price(e); }}
-                                        value={mid_price}
-                                        keyboardType='numeric'
-                                    />
-                                    : null
-                    }
 
 
 
@@ -416,6 +352,14 @@ const EditProduct = ({ navigation, route }) => {
                         value={quantity}
                     />
 
+                    <InputIcon
+                        styleCont={{ marginTop: 0 }}
+                        label={i18n.t('preparationTime')}
+                        placeholder={i18n.t('preparationTime')}
+                        keyboardType='numeric'
+                        onChangeText={(e) => setprebriation(e)}
+                        value={prebriation}
+                    />
 
                     <View style={{ height: width * .14, marginHorizontal: '5%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
                         <View style={{ paddingEnd: 150, paddingStart: 10 }}>

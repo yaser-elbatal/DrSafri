@@ -1,92 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, FlatList, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient';
 
 import i18n from '../../../locale/i18n'
 import Colors from '../../../consts/Colors';
 import Header from '../../../common/Header';
 import { InputIcon } from '../../../common/InputText';
-import { Picker, CheckBox, Content } from "native-base";
 import Card from '../../../common/Card';
-import DrobDwn from '../../../common/DrobDwn';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { GetSpecialOrders } from '../../../store/action/SpecialOrderDetailes';
 
 const { width, height } = Dimensions.get('window')
 
-function IncomingSpecialOrder({ navigation }) {
+function IncomingSpecialOrder({ navigation, route }) {
 
     const [isSelected, setSelection] = useState();
     const [selected, setSelected] = useState("key0")
     const [selected1, setSelected1] = useState("key0")
+    const { statues, label } = route.params
+    const dispatch = useDispatch()
+    const isFocused = useIsFocused();
 
-
-    const onValueChange1 = (value) => {
-        setSelected1(value)
-    }
-
-    const onValueChange = (value) => {
-        setSelected(value)
-    }
-    const Orderdata = [{
-        id: 'K0',
-        title: `${i18n.t('IncomingRequests')}`,
-        number: `100 ${i18n.t('order')}`,
-        color: [Colors.GradianYellow, Colors.GradianYellow2]
-    },
-    {
-        id: 'K1',
-        title: `${i18n.t('ActiveRequests')}`,
-        number: `100 ${i18n.t('order')}`,
-        color: [Colors.GradianGreen, Colors.GradianGreen2]
-    },
-    {
-        id: 'K2',
-        title: `${i18n.t('Completedrequests')}`,
-        number: `100 ${i18n.t('order')}`,
-        color: [Colors.GradianRed, Colors.GradianRed2]
-    }
-        ,
-    ]
-
-    const MeueCard = [{
-        id: 'K0',
-        num: 1,
-        title: `${i18n.t('rebresentativename')}`,
-        time: `${i18n.t('time')}`,
-        total: `${i18n.t('totaly')}`,
-    },
-    {
-        id: 'K1',
-        num: 2,
-        title: `${i18n.t('rebresentativename')}`,
-        time: `${i18n.t('time')}`,
-        total: `${i18n.t('totaly')}`,
-
-
-    },
-    {
-        id: 'K2',
-        num: 3,
-        title: `${i18n.t('rebresentativename')}`,
-        time: `${i18n.t('time')}`,
-        total: `${i18n.t('totaly')}`,
-
-    }
-        ,
-
-    ]
+    const token = useSelector(state => state.auth.user.data.token)
+    const lang = useSelector(state => state.lang.language);
+    const SpecialOrder = useSelector(state => state.SpecOrders.SpecOrders);
+    useEffect(() => {
+        if (isFocused) {
+            dispatch(GetSpecialOrders(token, statues, lang))
+        }
+    }, [isFocused]);
 
     return (
         <View style={{ flex: 1, backgroundColor: Colors.bg }}>
-            <Header navigation={navigation} label={i18n.t('incom')} />
+            <Header navigation={navigation} label={label} />
             <InputIcon
+                label={i18n.t('search1')}
                 placeholder={i18n.t('search1')}
                 image={require('../../../assets/Images/search.png')}
-                styleCont={{ marginTop: 10, height: width * .18, }}
-                inputStyle={{ backgroundColor: '#DBDBDB' }}
+                styleCont={{ marginTop: 20, }}
             />
             <Card />
 
-            <DrobDwn />
+            {/* <DrobDwn /> */}
 
 
 
@@ -95,21 +50,21 @@ function IncomingSpecialOrder({ navigation }) {
 
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={MeueCard}
+                data={SpecialOrder}
                 keyExtractor={(item) => item.id}
                 renderItem={(item) => (
-                    <TouchableOpacity onPress={() => navigation.navigate('IcomingSpecialOrderDetailes')} >
+                    <TouchableOpacity onPress={() => navigation.navigate('IcomingSpecialOrderDetailes', { OrderId: item.item.order_id })} style={{ marginTop: 10 }}>
                         <View style={styles.Card}>
                             <View style={{ margin: 10, justifyContent: 'center' }}>
-                                <CheckBox checked={isSelected} color={isSelected ? Colors.sky : '#DBDBDB'} style={{ backgroundColor: isSelected ? Colors.sky : Colors.bg, width: width * .05, height: 20, marginHorizontal: 2 }} onPress={() => setSelection(!isSelected)} />
+                                {/* <CheckBox checked={isSelected} color={isSelected ? Colors.sky : '#DBDBDB'} style={{ backgroundColor: isSelected ? Colors.sky : Colors.bg, width: width * .05, height: 20, marginHorizontal: 2 }} onPress={() => setSelection(!isSelected)} /> */}
 
-                                <Text style={styles.nText}>{i18n.t('num')} # {item.item.num}</Text>
+                                <Text style={styles.nText}>{i18n.t('num')} :  # {item.item.order_id}</Text>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                        <Text style={styles.name}>{item.item.title}</Text>
-                                        <Text style={[styles.name, { marginVertical: 5 }]}>{item.item.time}</Text>
-                                        <Text style={styles.name}>{item.item.total}</Text>
+                                        <Text style={styles.name}>{i18n.t('rebresentativename')}</Text>
+                                        <Text style={[styles.name, { marginVertical: 5 }]}>{i18n.t('time')}</Text>
+                                        <Text style={styles.name}>{i18n.t('totaly')}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                         <Text style={{ marginHorizontal: 20 }}>:</Text>
@@ -117,9 +72,9 @@ function IncomingSpecialOrder({ navigation }) {
                                         <Text style={{ marginHorizontal: 20 }}>:</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                        <Text style={styles.sname}> {i18n.t('name')}</Text>
-                                        <Text style={[styles.sname, { marginVertical: 5 }]}> 5 {i18n.t('minutes')}</Text>
-                                        <Text style={[styles.sname, { color: Colors.sky }]}> 122</Text>
+                                        <Text style={[styles.sname, { alignSelf: 'flex-start' }]}> {item.item.provider.name}</Text>
+                                        <Text style={[styles.sname, { marginVertical: 5, alignSelf: 'flex-start' }]}> {item.item.date} </Text>
+                                        <Text style={[styles.sname, { color: Colors.sky, alignSelf: 'flex-start' }]}> {item.item.price == 0 ? i18n.t('waitPrice') : item.item.price + i18n.t('RS')} </Text>
                                     </View>
                                 </View>
 

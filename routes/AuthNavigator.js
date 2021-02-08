@@ -177,6 +177,8 @@ const drawerScreen = () => {
             <Drawer.Screen name="Products" component={Products} />
             <Drawer.Screen name="EditProducts" component={EditProduct} />
             <Drawer.Screen name="Orders" component={Orders} />
+            <Drawer.Screen name="SpecialOrders" component={SpecialOrders} />
+
             <Drawer.Screen name="AddOffer" component={AddOffer} />
             <Drawer.Screen name="Settings" component={Settings} />
             <Drawer.Screen name="Comments" component={Comments} />

@@ -11,7 +11,7 @@ export const Get_Manage_account = 'Get_Manage_account';
 export const GetRatings = (token, lang) => {
     return async (dispatch) => {
         await axios({
-            method: 'POST',
+            method: 'GET',
             url: `${consts.url}provider-comments`,
             headers: { Authorization: 'Bearer ' + token },
             params: { lang }

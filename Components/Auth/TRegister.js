@@ -37,12 +37,12 @@ function TRegister({ navigation, route }) {
     const _validate = () => {
 
         // let UrlErr = WebUrl === '' ? i18n.t('webUrl') : null
-        let SelectDeliveryErr = SelectDelivery === null ? i18n.t('SelectYN') : null;
+        // let SelectDeliveryErr = SelectDelivery === null ? i18n.t('SelectYN') : null;
         let selecCommericalErr = selecCommerical === null ? i18n.t('SelectYN') : null;
         let ToEror = to == '' ? i18n.t('PrebaringTime') : null;
         let FromError = from == '' ? i18n.t('PrebaringTime') : null
 
-        return selecCommericalErr || SelectDeliveryErr || ToEror || FromError
+        return selecCommericalErr || ToEror || FromError
 
     }
 
@@ -51,7 +51,7 @@ function TRegister({ navigation, route }) {
         let val = _validate();
         if (!val) {
             setSpinner(true)
-            const data = { name, nameAR, nameEN, password, phone, email, CommercialRegister, city, department, isowner, BranchNum, MyLocation, latitude, longitude, WebUrl, selecCommerical, SelectDelivery, to, from, lang };
+            const data = { name, nameAR, nameEN, password, phone, email, CommercialRegister, city, department, isowner, BranchNum, MyLocation, latitude, longitude, WebUrl, selecCommerical, to, from, lang };
             dispatch(SignUp(data, navigation)).then(() => setSpinner(false)).catch(e => { setSpinner(false); console.warn(e); })
 
         }
@@ -152,7 +152,7 @@ function TRegister({ navigation, route }) {
                     }
 
                 </View>
-                <View style={{ height: width * .14, marginHorizontal: '5%', marginTop: 20, borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
+                {/* <View style={{ height: width * .14, marginHorizontal: '5%', marginTop: 20, borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
                     <View style={{ paddingEnd: 80, flex: .9, fontFamily: 'flatMedium', paddingStart: 10 }}>
                         <Text style={{ color: Colors.inputTextMainColor, fontFamily: 'flatMedium', alignSelf: 'flex-start' }}>{i18n.t('DeliveryServ')}</Text>
                     </View>
@@ -189,7 +189,7 @@ function TRegister({ navigation, route }) {
                         })
                     }
 
-                </View>
+                </View> */}
                 <BTN title={i18n.t('send')} ContainerStyle={styles.LoginBtn} onPress={ConfirmSignUp} />
             </ScrollView>
         </KeyboardAvoidingView>

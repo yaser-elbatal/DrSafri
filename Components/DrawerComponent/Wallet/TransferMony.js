@@ -96,58 +96,59 @@ function TransferMony({ navigation, route }) {
                 <Header navigation={navigation} label={i18n.t('Banktransfer')} />
 
 
+
+                <TouchableOpacity onPress={_pickImage}>
+                    {
+                        userImage == '' ?
+                            <Image source={require('../../../assets/Images/add_photo.png')} style={{ width: 200, height: 150, marginTop: 30, alignSelf: 'center', borderRadius: 15 }} resizeMode='contain' />
+                            :
+                            <Image source={{ uri: userImage }} style={{ width: 200, height: 150, marginTop: 30, alignSelf: 'center', borderRadius: 15 }} resizeMode='contain' />
+
+                    }
+                </TouchableOpacity>
+                <Text style={{ fontSize: 14, color: Colors.IconBlack, fontFamily: 'flatMedium', textAlign: 'center' }}> {i18n.t('Bankpicture')}</Text>
+                <InputIcon
+                    label={i18n.t("bankname")}
+                    placeholder={i18n.t("bankname")}
+                    value={Bankname}
+                    onChangeText={(e) => setName(e)}
+                    styleCont={{ marginTop: 20, }}
+                    inputStyle={{ borderRadius: 25 }}
+
+                />
+
+                <InputIcon
+                    label={i18n.t("AccountUser")}
+                    placeholder={i18n.t("AccountUser")}
+                    value={accountNAme}
+                    onChangeText={(e) => setAcoountname(e)}
+                    styleCont={{ marginTop: 10 }}
+                    inputStyle={{ borderRadius: 25 }}
+
+                />
+
+                <InputIcon
+                    label={i18n.t("Accnum")}
+                    placeholder={i18n.t("Accnum")}
+                    value={accountnum}
+                    onChangeText={(e) => setAccountnum(e)}
+                    styleCont={{ marginTop: 10 }}
+                    inputStyle={{ borderRadius: 25 }}
+
+
+                />
+                <InputIcon
+                    label={i18n.t("moneyPaied")}
+                    placeholder={i18n.t("moneyPaied")}
+                    value={money}
+                    onChangeText={(e) => setMoney(e)}
+                    styleCont={{ marginTop: 10 }}
+                    inputStyle={{ borderRadius: 25 }}
+                    keyboardType='numeric'
+
+                />
                 <Container loading={spinner}>
 
-                    <TouchableOpacity onPress={_pickImage}>
-                        {
-                            userImage == '' ?
-                                <Image source={require('../../../assets/Images/add_photo.png')} style={{ width: 200, height: 150, marginTop: 30, alignSelf: 'center', borderRadius: 15 }} resizeMode='contain' />
-                                :
-                                <Image source={{ uri: userImage }} style={{ width: 200, height: 150, marginTop: 30, alignSelf: 'center', borderRadius: 15 }} resizeMode='contain' />
-
-                        }
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 14, color: Colors.IconBlack, fontFamily: 'flatMedium', textAlign: 'center' }}> {i18n.t('Bankpicture')}</Text>
-                    <InputIcon
-                        label={i18n.t("bankname")}
-                        placeholder={i18n.t("bankname")}
-                        value={Bankname}
-                        onChangeText={(e) => setName(e)}
-                        styleCont={{ marginTop: 20, }}
-                        inputStyle={{ borderRadius: 25 }}
-
-                    />
-
-                    <InputIcon
-                        label={i18n.t("AccountUser")}
-                        placeholder={i18n.t("AccountUser")}
-                        value={accountNAme}
-                        onChangeText={(e) => setAcoountname(e)}
-                        styleCont={{ marginTop: 10 }}
-                        inputStyle={{ borderRadius: 25 }}
-
-                    />
-
-                    <InputIcon
-                        label={i18n.t("Accnum")}
-                        placeholder={i18n.t("Accnum")}
-                        value={accountnum}
-                        onChangeText={(e) => setAccountnum(e)}
-                        styleCont={{ marginTop: 10 }}
-                        inputStyle={{ borderRadius: 25 }}
-
-
-                    />
-                    <InputIcon
-                        label={i18n.t("moneyPaied")}
-                        placeholder={i18n.t("moneyPaied")}
-                        value={money}
-                        onChangeText={(e) => setMoney(e)}
-                        styleCont={{ marginTop: 10 }}
-                        inputStyle={{ borderRadius: 25 }}
-                        keyboardType='numeric'
-
-                    />
                     <BTN title={i18n.t("send")} onPress={SubmitHandler} ContainerStyle={{ marginVertical: width * .1, borderRadius: 10 }} TextStyle={{ fontSize: width * .04, }} />
                 </Container>
 

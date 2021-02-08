@@ -3,7 +3,7 @@ import { reactotronRedux } from 'reactotron-redux';
 
 
 
-const reactotron = Reactotron.configure({ name: 'DashboardDrTawsel', host: '192.168.2.7', port: 9090 })
+const reactotron = Reactotron.configure({ name: 'DashboardDrTawsel', host: '10.0.0.25', port: 9090 })
     .use(reactotronRedux()).useReactNative()
     .connect();
 

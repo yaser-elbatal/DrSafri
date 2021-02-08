@@ -9,12 +9,16 @@ import Colors from '../../../consts/Colors'
 const { width } = Dimensions.get('window')
 
 function SpecialOrders({ navigation }) {
+
+
+
+
     return (
         <View style={{ flex: 1, backgroundColor: Colors.bg }}>
             <Header navigation={navigation} label={i18n.t('specialOrder')} />
             <View style={styles.wrap}>
 
-                <TouchableOpacity onPress={() => navigation.navigate('IncomingSpecialOrder')}>
+                <TouchableOpacity onPress={() => navigation.navigate('IncomingSpecialOrder', { statues: 'WAITING_OFFER', label: i18n.t('IncomingRequests') })}>
                     <View style={styles.Container}>
                         <Text style={styles.text}>{i18n.t('IncomingRequests')}</Text>
                         {
@@ -29,7 +33,7 @@ function SpecialOrders({ navigation }) {
 
                 <View style={styles.Line}></View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('ActiveSpecialOrderDetailes')}>
+                <TouchableOpacity onPress={() => navigation.navigate('IncomingSpecialOrder', { statues: 'PROGRESS', label: i18n.t('ActiveRequests') })}>
                     <View style={styles.Container}>
                         <Text style={styles.text}>{i18n.t('ActiveRequests')}</Text>
                         {
@@ -44,7 +48,7 @@ function SpecialOrders({ navigation }) {
 
                 <View style={styles.Line}></View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('CompletedSpecialOrderDetailes')}>
+                <TouchableOpacity onPress={() => navigation.navigate('IncomingSpecialOrder', { statues: 'READY', label: i18n.t('Completedrequests') })}>
                     <View style={styles.Container}>
                         <Text style={styles.text}>{i18n.t('Completedrequests')}</Text>
                         {
@@ -59,7 +63,7 @@ function SpecialOrders({ navigation }) {
 
                 <View style={styles.Line}></View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('RejectedSpecialOrderDetailes')}>
+                <TouchableOpacity onPress={() => navigation.navigate('IncomingSpecialOrder', { statues: 'CANCELED', label: i18n.t('Rejectedrequests') })}>
                     <View style={styles.Container}>
                         <Text style={styles.text}>{i18n.t('Rejectedrequests')}</Text>
                         {

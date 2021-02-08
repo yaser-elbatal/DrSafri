@@ -49,7 +49,7 @@ function Orders({ navigation }) {
 
                     <View style={styles.Line}></View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('AllOrders', { statues: 'DELIVERED', label: i18n.t('Completedrequests') })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('AllOrders', { statues: 'READY', label: i18n.t('Completedrequests') })}>
                         <View style={styles.Container}>
                             <Text style={styles.text}>{i18n.t('Completedrequests')}</Text>
                             {

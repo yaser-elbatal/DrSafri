@@ -50,7 +50,7 @@ export const Order_Detailes = (token, id, lang) => {
 }
 
 
-export const CancelOrders = (token, id, navigation) => {
+export const CancelOrders = (token, id,) => {
     return async (dispatch) => {
 
         await axios({
@@ -60,21 +60,17 @@ export const CancelOrders = (token, id, navigation) => {
             headers: { Authorization: 'Bearer ' + token, },
 
         }).then(res => {
-            if (res.data.success) {
-                navigation.navigate('AllOrders', { statues: 'WAITING', label: i18n.t('IncomingRequests') })
-            }
 
-            else {
-                Toast.show({
-                    text: res.data.message,
-                    type: res.data.success ? "success" : "danger",
-                    duration: 3000,
-                    textStyle: {
-                        color: "white",
-                        textAlign: 'center'
-                    }
-                });
-            }
+            Toast.show({
+                text: res.data.message,
+                type: res.data.success ? "success" : "danger",
+                duration: 3000,
+                textStyle: {
+                    color: "white",
+                    textAlign: 'center'
+                }
+            });
+
         })
 
 
@@ -82,7 +78,7 @@ export const CancelOrders = (token, id, navigation) => {
 }
 
 
-export const ConfirmOrders = (token, id,) => {
+export const ConfirmOrders = (token, id, lang) => {
     return async (dispatch) => {
 
         await axios({
@@ -90,10 +86,22 @@ export const ConfirmOrders = (token, id,) => {
             url: consts.url + 'provider-update-order',
             data: { id, },
             headers: { Authorization: 'Bearer ' + token, },
+            params: { lang }
+
+
+        }).then(res => {
+
+            Toast.show({
+                text: res.data.message,
+                type: res.data.success ? "success" : "danger",
+                duration: 3000,
+                textStyle: {
+                    color: "white",
+                    textAlign: 'center'
+                }
+            });
 
 
         })
-
-
     }
 }

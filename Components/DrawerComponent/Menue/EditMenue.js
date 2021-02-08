@@ -9,7 +9,6 @@ import i18n from '../../../locale/i18n'
 function EditMenue(navigation, route) {
     const [EditMaodVisible, setEditMaodVisible] = useState(false);
     // const { MenueData } = route.params;
-    // console.log(MenueData);
 
     const [nameAREdit, setNameArEdit] = useState();
     const [nameENEdit, setNameENEdit] = useState();

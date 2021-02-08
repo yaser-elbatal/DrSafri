@@ -28,7 +28,7 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
     const { OrderId } = route.params
     const [spinner, setSpinner] = useState(true);
 
-    console.log(token);
+    console.log(OrderDet);
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             setSpinner(true)
@@ -39,17 +39,16 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
     }, [navigation])
 
     const CancelIncomingOrders = () => {
-        dispatch(CancelOrders(token, OrderId, navigation))
+        dispatch(CancelOrders(token, OrderId,)).then(() => navigation.navigate('AllOrders', { statues: 'CANCELED', label: i18n.t('Completedrequests') }))
 
     }
 
 
-    console.log(OrderDet);
     const ConfirmIncomingOrders = () => {
         setSpinner(true)
-        dispatch(ConfirmOrders(token, OrderId))
-        navigation.navigate('AllOrders', { statues: 'RUNNING', label: i18n.t('ActiveRequests') })
-        setSpinner(false)
+        dispatch(ConfirmOrders(token, OrderId, lang)).then(() => navigation.navigate('AllOrders', { statues: 'RUNNING', label: i18n.t('ActiveRequests') })).then(() => setSpinner(false))
+
+
 
     }
 
@@ -57,8 +56,8 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
 
     const OrderProcceed = () => {
         setSpinner(true)
-        dispatch(ConfirmOrders(token, OrderId))
-        dispatch(Order_Detailes(token, OrderId, lang)).then(() => setSpinner(false))
+        dispatch(ConfirmOrders(token, OrderId)).then(() => dispatch(Order_Detailes(token, OrderId, lang)).then(() => setSpinner(false)))
+
 
     }
     const OrderDelivered = () => {
@@ -67,25 +66,6 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
         navigation.navigate('HomePage')
     }
 
-    // const callNumber = phone => {
-    //     console.log('callNumber ----> ', phone);
-    //     let phoneNumber = phone;
-    //     if (Platform.OS !== 'android') {
-    //         phoneNumber = `telprompt:${phone}`;
-    //     }
-    //     else {
-    //         phoneNumber = `tel//:${phone}`;
-    //     }
-    //     Linking.openURL(phoneNumber)
-    //         .then(supported => {
-    //             if (!supported) {
-    //                 Alert.alert('Phone number is not available');
-    //             } else {
-    //                 return Linking.openURL(phoneNumber);
-    //             }
-    //         })
-    //         .catch(err => console.log(err));
-    // };
 
     return (
 
@@ -129,7 +109,7 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
                                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                                                     <Text style={styles.sname}>{OrderDet.user.name}</Text>
-                                                    <TouchableOpacity style={{ alignSelf: 'flex-end', alignItems: 'flex-end', left: width * .25 }} onPress={() => { }}>
+                                                    <TouchableOpacity style={{ alignSelf: 'flex-end', alignItems: 'flex-end', left: width * .25 }} onPress={() => { Linking.openURL('http://api.whatsapp.com/send?phone=' + OrderDet.user.phone) }}>
                                                         <Image source={require('../../../assets/Images/whatsapp.png')} style={{ width: 20, height: 20, }} resizeMode='contain' />
                                                     </TouchableOpacity>
                                                 </View>
@@ -164,7 +144,7 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
                                     :
                                     OrderDet.products.map(item => (
 
-                                        <View key={`${item.id}` + '_'} style={{ flexDirection: 'row', overflow: 'hidden', flex: 1, justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, margin: 20, backgroundColor: Colors.bg, width: '90%', height: 40, borderWidth: 1, borderColor: Colors.InputColor, marginTop: 0 }}>
+                                        <View key={`${item.id}` + '_'} style={{ flexDirection: 'row', overflow: 'hidden', flex: 1, justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, margin: 20, backgroundColor: Colors.bg, width: '90%', borderWidth: 1, borderColor: Colors.InputColor, marginTop: 0 }}>
                                             <Text style={styles.name}>{item.name}</Text>
                                             <View style={{ height: 50, width: 1, backgroundColor: Colors.InputColor }}></View>
                                             <Text style={styles.name}>{i18n.t('nume')} : {item.quantity}</Text>
@@ -262,26 +242,20 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
                                 <View style={{ flexDirection: 'row', marginHorizontal: '7%', marginVertical: 10 }}>
                                     <View style={{ flexDirection: 'column', justifyContent: 'space-between', }}>
                                         <Text style={styles.name}>{i18n.t('productPricess')}</Text>
-                                        <Text style={[styles.name, { paddingVertical: 5 }]}>{i18n.t('ExProduct')}</Text>
 
-                                        <Text style={[styles.name, { paddingVertical: 5 }]}>{i18n.t('Deliveryprice')}</Text>
                                         <Text style={[styles.name, { paddingVertical: 5 }]}>{i18n.t('Valueaddedtax')}</Text>
 
                                         <Text style={[styles.name, { paddingVertical: 5 }]}>{i18n.t('total')}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'space-between', }}>
                                         <Text style={{ marginHorizontal: 20 }}>:</Text>
-                                        <Text style={{ marginHorizontal: 20, }}>:</Text>
 
-                                        <Text style={{ marginHorizontal: 20, }}>:</Text>
                                         <Text style={{ marginHorizontal: 20, }}>:</Text>
                                         <Text style={{ marginHorizontal: 20 }}>:</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', justifyContent: 'space-between', }}>
                                         <Text style={styles.sname}>{OrderDet.sum}  {i18n.t('Rial')}</Text>
-                                        <Text style={[styles.sname, { marginTop: 10 }]}>{OrderDet.extra_prices} {i18n.t('Rial')}</Text>
 
-                                        <Text style={[styles.sname, { marginTop: 10 }]}>{OrderDet.shipping} {i18n.t('Rial')}</Text>
                                         <Text style={[styles.sname, { marginTop: 10 }]}>{OrderDet.added_value} {i18n.t('Rial')}</Text>
 
                                         <Text style={[styles.sname, { color: Colors.RedColor, marginTop: 10 }]}>{OrderDet.total} {i18n.t('Rial')}</Text>
@@ -299,9 +273,9 @@ function OrderDetailes({ navigation, route, onPressDetailes }) {
                                 : OrderDet.status === 'PROGRESS' ?
                                     < BTN title={i18n.t('AcceptOrders')} ContainerStyle={styles.LoginBtn} onPress={OrderProcceed} />
                                     : OrderDet.status === 'READY' ?
-                                        <>
-                                            < BTN title={i18n.t('findDelegate')} ContainerStyle={[styles.LoginBtn, { backgroundColor: Colors.InputColor }]} disabled={true} onPress={() => { }} />
-                                        </>
+                                        < BTN title={i18n.t('ReadyOrder')} ContainerStyle={styles.LoginBtn} onPress={() => navigation.navigate('AllOrders', { statues: 'READY', label: i18n.t('Completedrequests') })} />
+
+
                                         :
                                         null
                         }
@@ -339,7 +313,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 20,
         width: '90%',
-        marginTop: 10
+        marginTop: 20
     },
     centeredView: {
         flex: 1,

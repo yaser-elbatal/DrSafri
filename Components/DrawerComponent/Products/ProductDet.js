@@ -20,7 +20,7 @@ const ProductDet = ({ navigation, route }) => {
 
     const dispatch = useDispatch();
 
-
+    console.log(ProductDetA);
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             setSpinner(true)
@@ -87,8 +87,7 @@ const ProductDet = ({ navigation, route }) => {
                                 <View style={{ flexDirection: 'column', justifyContent: 'center', }}>
                                     <View style={styles.Wrab}>
                                         <View style={{ flexDirection: 'row', }}>
-                                            <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.text, { width: 100 }]}>{ProductDetA.name_ar}</Text>
-                                            <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.text, { paddingHorizontal: 10, width: 100 }]}>{ProductDetA.name_en}</Text>
+                                            <Text style={[styles.text,]}>{ProductDetA.name}</Text>
                                         </View>
 
                                         <View >
@@ -98,11 +97,8 @@ const ProductDet = ({ navigation, route }) => {
                                                     :
                                                     <Image source={require('../../../assets/Images/on_notifcatiom.png')} style={styles.BImg} resizeMode='contain' />
 
-
                                             }
                                         </View>
-
-
                                     </View>
                                     <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                                         <Text style={[styles.num, { color: Colors.IconBlack }]}>{ProductDetA.menu}</Text>
@@ -121,6 +117,8 @@ const ProductDet = ({ navigation, route }) => {
                                             }
 
                                         </View>
+                                        <Text style={[styles.num, { color: Colors.IconBlack }]}>{i18n.t('preparationTime')} : {ProductDetA.time}</Text>
+
 
                                     </View>
                                 </View>

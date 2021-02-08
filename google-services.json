@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "653251015585",
-    "firebase_url": "https://drtawsildash.firebaseio.com",
-    "project_id": "drtawsildash",
-    "storage_bucket": "drtawsildash.appspot.com"
+    "project_number": "287079739056",
+    "project_id": "drsafri-ad6ad",
+    "storage_bucket": "drsafri-ad6ad.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:653251015585:android:dc4b2d4f0cac917ee291e0",
+        "mobilesdk_app_id": "1:287079739056:android:dbae1ecf74d18fa2101575",
         "android_client_info": {
-          "package_name": "com.Awmer.DashboardDrTawsel"
+          "package_name": "com.Awmer.DrSafri"
         }
       },
       "oauth_client": [
         {
-          "client_id": "653251015585-690j7uiggt9aqjjtqk147piov4n384r1.apps.googleusercontent.com",
+          "client_id": "287079739056-nfvsbdtuou41h2k8hqb2mi9u3corh547.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWzBwZsT0r3CES8oMPfPvJDjvSxyP4LHs"
+          "current_key": "AIzaSyCGeLqH6KGPiJgr0kqUE15H2MSwD0XDj5Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "653251015585-690j7uiggt9aqjjtqk147piov4n384r1.apps.googleusercontent.com",
+              "client_id": "287079739056-nfvsbdtuou41h2k8hqb2mi9u3corh547.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

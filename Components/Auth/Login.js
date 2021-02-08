@@ -75,6 +75,7 @@ function Login({ navigation }) {
         }
 
     }
+    console.log(expoPushToken);
 
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => setExpoPushToken(token));

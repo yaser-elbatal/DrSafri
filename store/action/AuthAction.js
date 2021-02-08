@@ -56,7 +56,6 @@ const handelLogin = (dispatch, data, navigation) => {
 
 
 const loginSuccess = (dispatch, data, navigation) => {
-    console.log(data.data.active);
 
     if (data.data.active) {
 
@@ -119,7 +118,7 @@ export const SignUp = (data, navigation) => {
                     longitude: data.longitude,
                     website_url: data.WebUrl,
                     authorization_commercial: data.selecCommerical,
-                    available_delivery: data.SelectDelivery,
+                    available_delivery: 0,
                     preparing_time_to: data.to,
                     preparing_time_from: data.from,
                     device_id: deviceId,
@@ -131,7 +130,6 @@ export const SignUp = (data, navigation) => {
                     lang: data.lang,
                 }
             }).then(res => {
-                console.log('toooooooken' + res.data.data.token);
                 dispatch({ type: Sign_up, payload: res.data })
                 if (res.data.success) {
                     navigation.navigate('ActivateCode', { token: res.data.data.token })

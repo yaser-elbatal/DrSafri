@@ -7,7 +7,7 @@ import { width, height } from '../../consts/HeightWidth';
 import i18n from '../../locale/i18n'
 import Card from '../../common/Card'
 import { useSelector, useDispatch } from 'react-redux';
-import { GetHomeProducts, GetQuickReborts } from '../../store/action/HomeAction';
+import { GetHomeProducts, GetQuickReborts, NotificationCount } from '../../store/action/HomeAction';
 import Container from '../../common/Container';
 import * as Animatable from 'react-native-animatable';
 import * as Notifications from 'expo-notifications'
@@ -33,11 +33,11 @@ function HomePage({ navigation }) {
 
 
 
-
     useEffect(() => {
 
         const unsubscribe = navigation.addListener('focus', () => {
-            dispatch(GetHomeProducts(token, lang)).then(() => dispatch(GetQuickReborts(token, lang))).then(() => setSpinner(false))
+
+            dispatch(GetHomeProducts(token, lang)).then(() => dispatch(GetQuickReborts(token, lang))).then(() => dispatch(NotificationCount(token, lang))).then(() => setSpinner(false))
 
         });
 
@@ -77,6 +77,7 @@ function HomePage({ navigation }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
+
         dispatch(GetHomeProducts(token, lang));
         dispatch(GetQuickReborts(token, lang)).then(() => setRefreshing(false));
     }, []);
