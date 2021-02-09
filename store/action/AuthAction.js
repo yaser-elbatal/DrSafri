@@ -96,8 +96,8 @@ const loginFailed = (dispatch, error, navigation) => {
 
 export const SignUp = (data, navigation) => {
     return async (dispatch) => {
-        await AsyncStorage.getItem('deviceID').then(deviceId => {
-            axios({
+        await AsyncStorage.getItem('deviceID').then(async deviceId => {
+            await axios({
                 url: consts.url + 'sign-up',
 
                 method: 'POST',

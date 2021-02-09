@@ -39,10 +39,9 @@ function Login({ navigation }) {
     const dispatch = useDispatch();
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, Setisloading] = useState(false);
-    const [userId, setUserId] = useState(null);
+    const [showPass, setShowPass] = useState(false);
 
-    const [spinner, setSpinner] = useState(true);
+    const [spinner, setSpinner] = useState(false);
 
     const [expoPushToken, setExpoPushToken] = useState('');
     const [notification, setNotification] = useState(false);
@@ -78,16 +77,18 @@ function Login({ navigation }) {
     console.log(expoPushToken);
 
     useEffect(() => {
+
+
+
         registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
         });
 
-        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-        });
-        registerForPushNotificationsAsync().then(token => AsyncStorage.setItem('deviceID', token));
+        // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        // });
+        // registerForPushNotificationsAsync().then(token => AsyncStorage.setItem('deviceID', token));
 
-        setSpinner(false)
 
         return () => {
             Notifications.removeNotificationSubscription(notificationListener);
@@ -129,6 +130,9 @@ function Login({ navigation }) {
                 return;
             }
             token = (await Notifications.getExpoPushTokenAsync()).data;
+            AsyncStorage.setItem('deviceID', token);
+
+            return token;
         } else {
             Alert.alert(
                 //title
@@ -161,11 +165,11 @@ function Login({ navigation }) {
                 lightColor: '#FF231F7C',
             });
         }
-        AsyncStorage.setItem('deviceID', token);
+        if (token)
+            AsyncStorage.setItem('deviceID', token);
 
         return token;
     }
-
 
 
     // const getDeviceId = async () => {
@@ -208,37 +212,39 @@ function Login({ navigation }) {
                     <Text animation='slideInLeft' delay={500} style={styles.TextLogin}>{i18n.t('login')}</Text>
                     <Text animation='slideInRight' style={styles.UText}>{i18n.t('loginInf')}</Text>
                 </View>
+
+                <View style={{ overflow: 'hidden' }}>
+                    <Animatable.View animation="zoomIn" easing="ease-out" delay={500}>
+                        <Image source={require('../../assets/Images/Login.png')} style={styles.IMG} resizeMode='contain' />
+                    </Animatable.View>
+                </View>
+                <InputIcon
+                    label={i18n.t('phone')}
+                    placeholder={i18n.t('phone')}
+                    onChangeText={(e) => setPhone(e)}
+                    value={phone}
+                    styleCont={{ marginTop: 20 }}
+                    keyboardType='numeric' />
+
+                <InputIcon
+                    label={i18n.t('password')}
+                    placeholder={i18n.t('password')}
+                    onChangeText={(e) => setPassword(e)}
+                    value={password}
+                    secureTextEntry={!showPass}
+                    image={require('../../assets/Images/view.png')}
+                    onPress={() => setShowPass(!showPass)}
+                    styleCont={{ marginTop: 0 }}
+                />
+
+                <SText title={i18n.t('forgetPassword')} onPress={() => navigation.navigate('PhoneCheck')} style={styles.FPass} />
+
                 <Container loading={spinner}>
 
-                    <View style={{ overflow: 'hidden' }}>
-                        <Animatable.View animation="zoomIn" easing="ease-out" delay={500}>
-                            <Image source={require('../../assets/Images/Login.png')} style={styles.IMG} resizeMode='contain' />
-                        </Animatable.View>
-                    </View>
-                    <InputIcon
-                        label={i18n.t('phone')}
-                        placeholder={i18n.t('phone')}
-                        onChangeText={(e) => setPhone(e)}
-                        value={phone}
-                        styleCont={{ marginTop: 20 }}
-                        keyboardType='numeric' />
-
-                    <InputIcon
-                        label={i18n.t('password')}
-                        placeholder={i18n.t('password')}
-                        onChangeText={(e) => setPassword(e)}
-                        value={password}
-                        secureTextEntry
-                        styleCont={{ marginTop: 0 }}
-                    />
-
-                    <SText title={i18n.t('forgetPassword')} onPress={() => navigation.navigate('PhoneCheck')} style={styles.FPass} />
-
-
                     <BTN title={i18n.t('entry')} onPress={SubmitLoginHandler} ContainerStyle={styles.LoginBtn} />
-
-                    <SText title={i18n.t('createAcc')} onPress={() => navigation.navigate('Fregister')} style={{ color: Colors.sky, fontSize: 15, marginVertical: 30, marginTop: 10 }} />
                 </Container>
+
+                <SText title={i18n.t('createAcc')} onPress={() => navigation.navigate('Fregister')} style={{ color: Colors.sky, fontSize: 15, marginVertical: 30, marginTop: 10 }} />
             </ScrollView>
         </KeyboardAvoidingView>
 

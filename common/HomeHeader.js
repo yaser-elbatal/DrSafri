@@ -1,6 +1,6 @@
 import React from 'react'
 import Colors from '../consts/Colors'
-import { View, TouchableOpacity, Image, ImageBackground, Text } from 'react-native'
+import { View, TouchableOpacity, Image, ImageBackground, Text, I18nManager } from 'react-native'
 import { useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 
@@ -11,7 +11,7 @@ function HomeHeader({ label, title, navigation, onPress, }) {
         <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                 <View style={{ marginHorizontal: -30, marginVertical: -10 }}>
-                    <ImageBackground source={require('../assets/Images/bluBack.png')} style={{ height: 120, width: 120, alignItems: 'center', justifyContent: 'center', }} resizeMode='contain'>
+                    <ImageBackground source={require('../assets/Images/bluBack.png')} style={{ height: 120, width: 120, alignItems: 'center', justifyContent: 'center', transform: I18nManager.isRTL ? [{ rotateY: '0deg' }] : [{ rotateY: ' -180deg' }], }} resizeMode='contain'>
                         <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{ top: 20 }}>
                             <Image source={require('../assets/Images/menu.png')} style={{ height: 25, width: 25, }} resizeMode='contain' />
                         </TouchableOpacity>

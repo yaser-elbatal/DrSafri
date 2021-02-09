@@ -237,14 +237,15 @@ const en = {
   setRequiredQuatity: 'Set Required Quantity',
   orederNow: 'Order Now',
 
-  Url: 'www.DrTawseel.com',
+  Url: 'www.safri.com',
   //SaveLocation
   saveLocation: 'save Location',
   place: 'Place name',
   enetrsavePlace: 'Enter the name of the place you want to save',
   save: 'save',
   cancel: 'Cancel',
-
+  Iban: 'Iban',
+  statue: 'Statue',
   //specialorder
   specialOrder: 'Special Orders',
   Receivingpoint: 'Receiving point',

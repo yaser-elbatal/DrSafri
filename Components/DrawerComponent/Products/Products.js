@@ -216,7 +216,7 @@ function Products({ navigation }) {
                                                 <CheckBox checked={isChecked(item.id)} color={isChecked(item.id) ? Colors.sky : '#DBDBDB'} style={{ backgroundColor: isChecked(item.id) ? Colors.sky : Colors.bg, marginStart: -10, borderRadius: 5 }} onPress={() => toggleChecked(item.id)} />
                                                 <Text style={styles.nText}>{i18n.t('num')} # {index + 1}</Text>
 
-                                                <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.name, { color: Colors.IconBlack, alignSelf: 'flex-start', width: 130 }]} numberOfLines={1} >{item.menu + ' ـــ '}{item.name}</Text>
+                                                <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.name, { color: Colors.IconBlack, alignSelf: 'flex-start', width: 160 }]} numberOfLines={1} >{item.menu + ' ـــ '}{item.name}</Text>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                     <Text style={styles.nText}>{item.price - (item.price * (item.discount / 100))} {i18n.t('Rial')}</Text>
                                                     {

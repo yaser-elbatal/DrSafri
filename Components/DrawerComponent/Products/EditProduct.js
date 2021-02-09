@@ -59,7 +59,7 @@ const EditProduct = ({ navigation, route }) => {
     const [base64, setBase64] = useState(null);
     const [userImage, setUserImage] = useState(ProductDet.image);
 
-
+    const [loading, setloading] = useState(false)
     console.log(ProductDet);
 
     useEffect(() => {
@@ -156,8 +156,8 @@ const EditProduct = ({ navigation, route }) => {
     const Edit_product = () => {
         let val = _validate()
         if (!val) {
-            setSpinner(true)
-            dispatch(EditProducts(token, lang, ProductsId, nameAR, nameEN, available, detailesAr, detailesEn, availableKilos, Discount, quantity, MenueId, large_price, base64, ProductsExtras, prebriation, navigation)).then(() => setSpinner(false))
+            setloading(true)
+            dispatch(EditProducts(token, lang, ProductsId, nameAR, nameEN, available, detailesAr, detailesEn, availableKilos, Discount, quantity, MenueId, large_price, base64, ProductsExtras, prebriation, navigation)).then(() => setloading(false))
         }
         else {
             setSpinner(false);
@@ -257,7 +257,7 @@ const EditProduct = ({ navigation, route }) => {
 
 
     return (
-        <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? "padding" : 'height'} style={{ backgroundColor: 'white', flex: 1 }}>
+        <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? "padding" : 'height'} style={{ flex: 1 }}>
 
 
             <ScrollView style={{ flex: 1, backgroundColor: Colors.bg }}>
@@ -517,10 +517,11 @@ const EditProduct = ({ navigation, route }) => {
 
 
                     <SText title={`+ ${i18n.t('AddPro')}`} onPress={() => setEditMaodVisible(true)} style={{ color: Colors.sky, fontSize: 15, marginVertical: 20, marginTop: 0, textAlign: 'left', marginHorizontal: '5%' }} />
+                    <Container loading={loading}>
 
-                    <BTN title={i18n.t('edit')} ContainerStyle={styles.LoginBtn} onPress={Edit_product} />
+                        <BTN title={i18n.t('edit')} ContainerStyle={styles.LoginBtn} onPress={Edit_product} />
 
-
+                    </Container>
                     <View style={styles.centeredView}>
                         <Modal
                             animationType="slide"

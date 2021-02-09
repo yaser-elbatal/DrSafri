@@ -60,6 +60,8 @@ function Notifications({ navigation }) {
 
     //         }
     //     ]
+
+    console.log(Notifications);
     return (
         <View style={{ flex: 1 }}>
             <HomeHeader navigation={navigation} label={i18n.t('notifications')} onPress={() => navigation.navigate('MyProfile')} />
@@ -78,8 +80,8 @@ function Notifications({ navigation }) {
                             keyExtractor={(item) => item.id}
                             renderItem={(item) => (
                                 <Animatable.View animation="fadeInUp" easing="ease-out" delay={500}>
-                                    <TouchableOpacity onPress={() => item.item.type == 'order' ? navigation.navigate('OrderDetailes', { OrderId: item.item.order_id }) : {}}>
-                                        <View style={{ borderWidth: 1, width: '90%', height: 100, marginHorizontal: '7%', borderRightWidth: 0, borderTopWidth: 0, borderColor: Colors.InputColor }}>
+                                    <TouchableOpacity onPress={item.item.type == 'order' ? () => navigation.navigate('OrderDetailes', { OrderId: item.item.order_id }) : item.item.type == 'special_order' ? () => navigation.navigate('IcomingSpecialOrderDetailes', { OrderId: item.item.order_id }) : {}}>
+                                        <View style={{ borderWidth: 1, width: '90%', height: 100, marginHorizontal: '7%', borderRightWidth: 0, borderTopWidth: 0, borderColor: Colors.InputColor, }}>
                                             <View style={{ flexDirection: 'column', margin: 20, justifyContent: 'center', flex: 1 }}>
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>

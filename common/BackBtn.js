@@ -5,7 +5,7 @@ import { width, height } from '../consts/HeightWidth'
 function BackBtn({ navigation }) {
     return (
         <View style={styles.container}>
-            <Image source={require('../assets/Images/bluBack.png')} style={styles.BGImage} resizeMode='contain' />
+            <Image source={require('../assets/Images/bluBack.png')} style={[styles.BGImage, { transform: I18nManager.isRTL ? [{ rotateY: ' -180deg' }] : [{ rotateY: '0deg' }], }]} resizeMode='contain' />
             <TouchableOpacity style={styles.Btn} onPress={() => navigation.goBack()}>
                 {
                     I18nManager.isRTL ?

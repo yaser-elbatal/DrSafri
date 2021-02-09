@@ -32,7 +32,6 @@ function HomePage({ navigation }) {
 
 
 
-
     useEffect(() => {
 
         const unsubscribe = navigation.addListener('focus', () => {
@@ -40,7 +39,6 @@ function HomePage({ navigation }) {
             dispatch(GetHomeProducts(token, lang)).then(() => dispatch(GetQuickReborts(token, lang))).then(() => dispatch(NotificationCount(token, lang))).then(() => setSpinner(false))
 
         });
-
         const subscription = Notifications.addNotificationReceivedListener(notification => {
             let type = notification.request.content.data.type;
             let OrderId = notification.request.content.data.order_id;
@@ -72,19 +70,20 @@ function HomePage({ navigation }) {
         });
         setSpinner(false)
         return () => { subscription.remove(), unsubscribe, subscriptions };
-    }, [])
+    }, [navigation])
 
 
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
+    // const onRefresh = React.useCallback(() => {
+    //     setRefreshing(true);
 
-        dispatch(GetHomeProducts(token, lang));
-        dispatch(GetQuickReborts(token, lang)).then(() => setRefreshing(false));
-    }, []);
+
+    //     dispatch(GetHomeProducts(token, lang)).then(() => dispatch(GetQuickReborts(token, lang))).then(() => setRefreshing(false));
+    // }, []);
+    console.log(user);
 
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, }}
-            refreshControl={< RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+            refreshControl={< RefreshControl refreshing={refreshing} />}>
             <HomeHeader navigation={navigation} image={user.avatar} label={i18n.t('Hello') + user.name + '!'} title={i18n.t('Dash')} onPress={() => navigation.navigate('MyProfile')} />
             <Card />
 
@@ -103,11 +102,19 @@ function HomePage({ navigation }) {
                             renderItem={({ item, index }) => (
 
                                 <TouchableOpacity style={styles.Card} key={item.id} onPress={() => navigation.navigate('ProductDet', { ProductsId: item.id, index: index })}>
-                                    <View style={{ flexDirection: 'column', flex: 1 }}>
-                                        <Image source={{ uri: item.image }} style={{ width: '100%', flex: .8 }} />
-                                        <View style={{ margin: 10, flex: .2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                            <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.prod, { fontWeight: '900', width: 100 }]}>{item.name}</Text>
-                                            <Text style={[styles.prod, { color: Colors.sky, fontSize: 16 }]}>{item.price} {i18n.t('Rial')}</Text>
+                                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center', }}>
+                                        <Image source={{ uri: item.image }} style={{ width: '100%', height: '60%' }} />
+                                        <View style={{ flexDirection: 'column', justifyContent: 'center', flex: 1, marginTop: 5, alignSelf: 'flex-start', margin: 5 }}>
+                                            <Text style={[styles.prod, { alignSelf: 'flex-start', }]}>{item.name.length > 25 ? (item.name).substr(0, 20) + '...' : item.name}</Text>
+                                            <View style={{ flexDirection: 'row', }}>
+                                                <Text style={styles.nText}>{item.price - (item.price * (item.discount / 100))} {i18n.t('Rial')}</Text>
+
+                                                {
+                                                    item.discount == 0 ? null :
+                                                        <Text style={[styles.nText, { color: 'red', padding: 10, textDecorationLine: 'line-through', textDecorationColor: Colors.RedColor, textDecorationStyle: 'solid', fontSize: 14, alignSelf: 'center', fontSize: 10 }]}>{item.price} {i18n.t('Rial')}</Text>
+                                                }
+
+                                            </View>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -212,6 +219,13 @@ const styles = StyleSheet.create({
         marginTop: -5
 
     },
+    nText: {
+        color: Colors.sky,
+        fontFamily: 'flatMedium',
+        alignSelf: 'flex-start',
+        fontSize: 16,
+
+    },
     MainText: {
         fontFamily: 'flatMedium',
         fontSize: 20,
@@ -243,16 +257,16 @@ const styles = StyleSheet.create({
     },
     prod: {
         fontFamily: 'flatMedium',
-        fontSize: 14
+        fontSize: 16
     },
     Card: {
         margin: 13,
         borderRadius: 20,
-        width: width * .55,
-        height: height * .25,
+        width: width * .49,
+        height: height * .29,
         backgroundColor: Colors.bg,
         flex: 1,
-        borderTopStartRadius: 0,
+        // borderTopStartRadius: 0,
         overflow: 'hidden'
     },
     WrabText: {

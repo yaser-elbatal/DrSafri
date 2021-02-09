@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { View, Text, ImageBackground, TouchableOpacity, Image, StyleSheet, ScrollView, AsyncStorage } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, Image, StyleSheet, ScrollView, AsyncStorage, I18nManager } from 'react-native'
 import Colors from '../../consts/Colors'
 import i18n from '../../locale/i18n'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,7 +42,7 @@ function CustomDrawerMenue({ navigation }) {
 
 
 
-                <ImageBackground source={require('../../assets/Images/bluBack.png')} style={{ height: 180, width: 100, alignItems: 'center', justifyContent: 'center', bottom: 35, left: 12 }} resizeMode='contain'>
+                <ImageBackground source={require('../../assets/Images/bluBack.png')} style={{ height: 180, width: 100, alignItems: 'center', justifyContent: 'center', bottom: 35, left: 12, transform: I18nManager.isRTL ? [{ rotateY: ' -180deg' }] : [{ rotateY: '0deg' }] }} resizeMode='contain'>
                     <TouchableOpacity onPress={() => navigation.closeDrawer()} style={{ top: 15 }}>
                         <Image source={require('../../assets/Images/crossgray.png')} style={{ height: 20, width: 20, }} resizeMode='contain' />
                     </TouchableOpacity>

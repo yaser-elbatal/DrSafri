@@ -51,13 +51,10 @@ function Banktransfer({ navigation }) {
                                 <View style={{ marginHorizontal: '5%', backgroundColor: '#F8F8F8', borderRadius: 10, padding: 10, overflow: 'hidden', marginTop: 5 }} key={acc.id}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: .5 }}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                                             <Image source={{ uri: acc.image }} style={{ width: 60, height: 60 }} />
-                                            <View style={{ flexDirection: 'column', alignItems: 'center', paddingHorizontal: 2 }}>
-                                                <Text style={{ fontSize: 10, color: 'blue', fontFamily: 'flatMedium' }}> {acc.bank_name}</Text>
-                                            </View>
                                         </View>
-                                        <View style={{ flexDirection: 'column', flex: .5, justifyContent: 'center' }}>
+                                        <View style={{ flexDirection: 'column', marginStart: 10, justifyContent: 'center' }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                 <Text style={{ fontSize: width * .03, color: Colors.fontNormal, fontFamily: 'flatMedium' }}>{i18n.t('bankname')} : </Text>
                                                 <Text style={{ fontSize: width * .025, color: Colors.RedColor, fontFamily: 'flatMedium' }}>{acc.bank_name}</Text>
@@ -73,7 +70,7 @@ function Banktransfer({ navigation }) {
                                             </View>
 
                                             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5 }}>
-                                                <Text style={{ fontSize: width * .03, color: Colors.fontNormal, fontFamily: 'flatMedium', alignSelf: 'flex-start' }}>IBaN   :    </Text>
+                                                <Text style={{ fontSize: width * .03, color: Colors.fontNormal, fontFamily: 'flatMedium', alignSelf: 'flex-start' }}>{i18n.t('Iban')}   :    </Text>
                                                 <Text style={{ fontSize: width * .025, color: Colors.IconBlack, fontFamily: 'flatMedium', alignSelf: 'flex-end' }}>  {acc.iban_number}  </Text>
 
                                             </View>

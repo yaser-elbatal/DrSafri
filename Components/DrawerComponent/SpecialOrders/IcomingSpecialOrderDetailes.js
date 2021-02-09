@@ -71,40 +71,35 @@ function IcomingSpecialOrderDetailes({ navigation, route }) {
                 SpecOrderDet &&
                 <ScrollView style={{ flex: 1 }}>
                     <TouchableOpacity onPress={() => setClick(!click)}>
-                        <View style={{ width: '95%', margin: 10, backgroundColor: Colors.InputColor, height: 40, }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
-                                <Text style={styles.nMenu}>{i18n.t('ClientInfo')}</Text>
-                                {
-                                    click ?
+                        <View style={{ width: '95%', margin: 10, backgroundColor: Colors.InputColor, height: 50, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10 }}>
+                            <Text style={styles.nMenu}>{i18n.t('ClientInfo')}</Text>
+                            {
+                                click ?
 
-                                        <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, top: 5 }} />
-                                        :
-                                        <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, top: 5 }} />
+                                    <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, }} />
+                                    :
+                                    <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, }} />
 
-                                }
-                            </View>
+                            }
                         </View>
                     </TouchableOpacity>
                     {
                         click ?
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: '7%' }}>
-                                <View style={{ flexDirection: 'column', }}>
-                                    <Text style={styles.name}>{i18n.t('rebresentativename')}</Text>
-                                    <Text style={[styles.name, { marginVertical: 15 }]}>{i18n.t('phone')}</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: '7%', marginVertical: 10 }}>
+                                <View style={{ flexDirection: 'column', marginEnd: 20, }}>
+                                    <Text style={styles.name}>{i18n.t('rebresentativename')} : </Text>
+                                    <Text style={[styles.name, { marginVertical: 15 }]}>{i18n.t('phone')} : </Text>
                                 </View>
-                                <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                    <Text style={{ marginHorizontal: 15 }}>:</Text>
-                                    <Text style={{ marginHorizontal: 15, marginVertical: 15 }}>:</Text>
-                                </View>
+
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                        <Text style={styles.sname}>{SpecOrderDet.provider.name}</Text>
-                                        <TouchableOpacity style={{ alignSelf: 'flex-end', alignItems: 'flex-end', left: width * .24 }} onPress={() => Linking.openURL(`tel:${SpecOrderDet.provider.phone}`)}>
-                                            <Image source={require('../../../assets/Images/whatsapp.png')} style={{ width: 20, height: 20, }} resizeMode='contain' />
-                                        </TouchableOpacity>
-                                    </View>
+                                    <Text style={styles.sname}>{SpecOrderDet.provider.name}</Text>
                                     <Text style={[styles.sname, { marginVertical: 15 }]}>{SpecOrderDet.provider.phone}</Text>
+
                                 </View>
+                                <TouchableOpacity style={{ alignSelf: 'center', left: 80 }} onPress={() => { Linking.openURL('http://api.whatsapp.com/send?phone=' + SpecOrderDet.provider.phone) }}>
+                                    <Image source={require('../../../assets/Images/whatsapp.png')} style={{ width: 20, height: 20, }} resizeMode='contain' />
+                                </TouchableOpacity>
+
                             </View>
 
                             : null
@@ -112,23 +107,21 @@ function IcomingSpecialOrderDetailes({ navigation, route }) {
 
                     <TouchableOpacity onPress={() => setClick1(!click1)}>
                         <View style={styles.Container}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
-                                <Text style={styles.nMenu}>{i18n.t('orderDetailes')}</Text>
-                                {
-                                    click1 ?
+                            <Text style={styles.nMenu}>{i18n.t('orderDetailes')}</Text>
+                            {
+                                click1 ?
 
-                                        <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, top: 5 }} />
-                                        :
-                                        <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, top: 5 }} />
+                                    <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, }} />
+                                    :
+                                    <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, }} />
 
-                                }
-                            </View>
+                            }
                         </View>
                     </TouchableOpacity>
                     {
                         click1 ?
                             <View style={{ margin: 20, marginTop: 0 }}>
-                                <Text style={{ paddingStart: 20, color: Colors.fontNormal, fontFamily: 'flatMedium', }}>
+                                <Text style={{ paddingStart: 20, color: Colors.fontNormal, fontFamily: 'flatMedium', alignSelf: 'flex-start' }}>
                                     {SpecOrderDet.details}
 
                                 </Text>
@@ -139,17 +132,15 @@ function IcomingSpecialOrderDetailes({ navigation, route }) {
                     }
                     <TouchableOpacity onPress={() => setClick3(!click3)}>
                         <View style={styles.Container}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
-                                <Text style={styles.nMenu}>{i18n.t('Paymentmethod')}</Text>
-                                {
-                                    click3 ?
+                            <Text style={styles.nMenu}>{i18n.t('Paymentmethod')}</Text>
+                            {
+                                click3 ?
 
-                                        <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, top: 5 }} />
-                                        :
-                                        <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, top: 5 }} />
+                                    <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, top: 5 }} />
+                                    :
+                                    <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, top: 5 }} />
 
-                                }
-                            </View>
+                            }
                         </View>
                     </TouchableOpacity>
 
@@ -161,39 +152,34 @@ function IcomingSpecialOrderDetailes({ navigation, route }) {
 
                     }
                     {
-                        SpecOrderDet.price === 0 ?
+                        SpecOrderDet.status == "WAITING_OFFER" && SpecOrderDet.price === 0 ?
                             < BTN title={i18n.t('priceEnter')} ContainerStyle={[styles.LoginBtn, { marginTop: 40 }]} onPress={() => setIsDeliverMoadl(!IsDeliverMoadl)} />
                             :
                             <>
                                 <TouchableOpacity onPress={() => setClick4(!click4)}>
                                     <View style={styles.Container}>
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
-                                            <Text style={styles.nMenu}>{i18n.t('prices')}</Text>
-                                            {
-                                                click4 ?
+                                        <Text style={styles.nMenu}>{i18n.t('prices')}</Text>
+                                        {
+                                            click4 ?
 
-                                                    <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, top: 5 }} />
-                                                    :
-                                                    <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, top: 5 }} />
+                                                <Image source={require('../../../assets/Images/noun_down_blue.png')} style={{ width: 12, height: 10, }} />
+                                                :
+                                                <Image source={require('../../../assets/Images/noun_down_gray.png')} style={{ width: 12, height: 10, }} />
 
-                                            }
-                                        </View>
+                                        }
                                     </View>
                                 </TouchableOpacity>
                                 {
                                     click4 ?
-                                        <View style={{ flexDirection: 'row', marginHorizontal: '7%', marginTop: 10 }}>
-                                            <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                                <Text style={styles.name}>{i18n.t('productPrice')}</Text>
-                                                <Text style={[styles.name, { marginTop: 5 }]}>{i18n.t('total')}</Text>
+                                        <View style={{ flexDirection: 'row', marginHorizontal: '7%', marginTop: 20 }}>
+                                            <View style={{ flexDirection: 'column', justifyContent: 'center', marginEnd: 25, }}>
+                                                <Text style={styles.name}>{i18n.t('productPrice')} : </Text>
+                                                <Text style={[styles.name, { paddingVertical: 10 }]}>{i18n.t('total')} : </Text>
                                             </View>
-                                            <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                                <Text style={{ marginHorizontal: 20, }}>:</Text>
-                                                <Text style={{ marginHorizontal: 20 }}>:</Text>
-                                            </View>
+
                                             <View style={{ flexDirection: 'column', justifyContent: 'center', }}>
                                                 <Text style={styles.sname}>{SpecOrderDet.price} {i18n.t('Rial')}</Text>
-                                                <Text style={[styles.sname, { color: Colors.RedColor, }]}> {SpecOrderDet.total} {i18n.t('Rial')}</Text>
+                                                <Text style={[styles.sname, { color: Colors.RedColor, paddingVertical: 10 }]}> {SpecOrderDet.total} {i18n.t('Rial')}</Text>
                                             </View>
                                         </View>
 
@@ -253,19 +239,21 @@ function IcomingSpecialOrderDetailes({ navigation, route }) {
 const styles = StyleSheet.create({
     nMenu: {
         fontFamily: 'flatMedium',
-        fontSize: 14,
-        marginHorizontal: 15,
+        fontSize: 16,
         textAlign: 'center'
     },
     name: {
         fontFamily: 'flatMedium',
-        fontSize: 14,
-        color: Colors.fontNormal
+        fontSize: 18,
+        color: Colors.fontNormal,
+        lineHeight: 22
     },
     sname: {
         fontFamily: 'flatMedium',
         fontSize: 14,
-        color: Colors.IconBlack
+        color: Colors.IconBlack,
+        lineHeight: 22,
+
     },
     LoginBtn: {
         marginVertical: 5,
@@ -298,9 +286,15 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     Container: {
-        width: '95%', margin: 10,
+        width: '95%',
         backgroundColor: Colors.InputColor,
-        height: 40, marginTop: 0
+        height: 50,
+        marginHorizontal: '2%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        alignItems: 'center',
+        margin: 10,
     },
 
 })

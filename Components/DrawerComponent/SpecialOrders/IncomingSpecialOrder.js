@@ -60,17 +60,13 @@ function IncomingSpecialOrder({ navigation, route }) {
 
                                 <Text style={styles.nText}>{i18n.t('num')} :  # {item.item.order_id}</Text>
 
-                                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                                    <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                        <Text style={styles.name}>{i18n.t('rebresentativename')}</Text>
-                                        <Text style={[styles.name, { marginVertical: 5 }]}>{i18n.t('time')}</Text>
-                                        <Text style={styles.name}>{i18n.t('totaly')}</Text>
+                                <View style={{ flexDirection: 'row', }}>
+                                    <View style={{ flexDirection: 'column', justifyContent: 'center', marginEnd: 25, alignSelf: 'flex-start' }}>
+                                        <Text style={styles.name}>{i18n.t('rebresentativename')} : </Text>
+                                        <Text style={[styles.name, { marginVertical: 5 }]}>{i18n.t('time')} : </Text>
+                                        <Text style={styles.name}>{i18n.t('totaly')} : </Text>
                                     </View>
-                                    <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                                        <Text style={{ marginHorizontal: 20 }}>:</Text>
-                                        <Text style={{ marginVertical: 5, marginHorizontal: 20 }}>:</Text>
-                                        <Text style={{ marginHorizontal: 20 }}>:</Text>
-                                    </View>
+
                                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                         <Text style={[styles.sname, { alignSelf: 'flex-start' }]}> {item.item.provider.name}</Text>
                                         <Text style={[styles.sname, { marginVertical: 5, alignSelf: 'flex-start' }]}> {item.item.date} </Text>
@@ -105,6 +101,7 @@ const styles = StyleSheet.create({
         color: Colors.sky,
         marginVertical: 5,
         fontFamily: 'flatMedium',
+        alignSelf: 'flex-start'
 
     },
     Text: {
@@ -151,12 +148,15 @@ const styles = StyleSheet.create({
     name: {
         fontFamily: 'flatMedium',
         fontSize: 12,
-        color: Colors.fontNormal
+        color: Colors.fontNormal,
+        lineHeight: 22
+
     },
     sname: {
         fontFamily: 'flatMedium',
         fontSize: 12,
-        color: Colors.IconBlack
+        color: Colors.IconBlack,
+        lineHeight: 22
     },
     Contain: {
         flexDirection: 'row',

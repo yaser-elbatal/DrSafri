@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Toaster } from '../../common/Toaster';
 import { SignUp } from '../../store/action/AuthAction';
 import * as Animatable from 'react-native-animatable';
+import Container from '../../common/Container';
 
 function TRegister({ navigation, route }) {
 
@@ -114,42 +115,45 @@ function TRegister({ navigation, route }) {
                 </View>
 
 
-                <View style={{ height: width * .14, marginHorizontal: '5%', flex: 1, borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
-                    <View style={{ paddingEnd: 80, fontFamily: 'flatMedium', flex: .9, fontSize: 10, }}>
+                <View style={{ height: width * .14, marginHorizontal: '5%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15 }}>
+                    <View>
                         <Text style={{ color: Colors.inputTextMainColor, fontFamily: 'flatMedium', paddingStart: 10, alignSelf: 'flex-start' }}>{i18n.t('Franch')}</Text>
                     </View>
-                    {
-                        data.map((item, index) => {
-                            return (
-                                <TouchableOpacity onPress={() => { setselecCommerical(index) }} key={index + 1} style={{ flexDirection: 'row', justifyContent: 'center', padding: 10, }}>
-                                    <View style={{
-                                        height: 15,
-                                        width: 15,
-                                        borderRadius: 12,
-                                        borderWidth: 2,
-                                        borderColor: selecCommerical === index ? Colors.sky : Colors.fontNormal,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        alignSelf: 'center',
+                    <View style={{ flexDirection: 'row' }}>
+                        {
+                            data.map((item, index) => {
+                                return (
+                                    <TouchableOpacity onPress={() => { setselecCommerical(index) }} key={index + 1} style={{ flexDirection: 'row', justifyContent: 'center', padding: 10, }}>
+                                        <View style={{
+                                            height: 15,
+                                            width: 15,
+                                            borderRadius: 12,
+                                            borderWidth: 2,
+                                            borderColor: selecCommerical === index ? Colors.sky : Colors.fontNormal,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            alignSelf: 'center',
 
-                                    }}>
-                                        {
-                                            selecCommerical === index ?
-                                                <View style={{
-                                                    height: 6,
-                                                    width: 6,
-                                                    borderRadius: 6,
-                                                    backgroundColor: Colors.sky,
-                                                }} />
-                                                : null
-                                        }
-                                    </View>
-                                    <Text style={[styles.sText, { color: selecCommerical === index ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, fontFamily: 'flatMedium' }]}>{item.title}</Text>
+                                        }}>
+                                            {
+                                                selecCommerical === index ?
+                                                    <View style={{
+                                                        height: 6,
+                                                        width: 6,
+                                                        borderRadius: 6,
+                                                        backgroundColor: Colors.sky,
+                                                    }} />
+                                                    : null
+                                            }
+                                        </View>
+                                        <Text style={[styles.sText, { color: selecCommerical === index ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, fontFamily: 'flatMedium' }]}>{item.title}</Text>
 
-                                </TouchableOpacity>
-                            )
-                        })
-                    }
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
+                    </View>
+
 
                 </View>
                 {/* <View style={{ height: width * .14, marginHorizontal: '5%', marginTop: 20, borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
@@ -190,7 +194,10 @@ function TRegister({ navigation, route }) {
                     }
 
                 </View> */}
-                <BTN title={i18n.t('send')} ContainerStyle={styles.LoginBtn} onPress={ConfirmSignUp} />
+                <Container loading={spinner}>
+                    <BTN title={i18n.t('send')} ContainerStyle={styles.LoginBtn} onPress={ConfirmSignUp} />
+
+                </Container>
             </ScrollView>
         </KeyboardAvoidingView>
 

@@ -76,7 +76,7 @@ function Comments({ navigation }) {
                                             <StarRating
                                                 maxStars={5}
                                                 rating={comm.rate}
-                                                fullStarColor={'yellow'}
+                                                fullStarColor={Colors.sky}
                                                 starSize={20}
 
                                             />

@@ -87,6 +87,8 @@ function AddProduct({ navigation }) {
     const [base64, setBase64] = useState(null);
     const [userImage, setUserImage] = useState(null);
     const [EditMaodVisible, setEditMaodVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
 
 
@@ -131,13 +133,13 @@ function AddProduct({ navigation }) {
     const Add_Product = () => {
         let val = _validate();
         if (!val) {
-            setSpinner(true)
-            dispatch(Add_Products(token, lang, nameAR, nameEN, detailesAr, detailesEn, available, availableKilos, Discount, quantity, large_price, prebriation, MenueId, base64, navigation, ExtraProduct)).then(() => setSpinner(false))
+            setLoading(true)
+            dispatch(Add_Products(token, lang, nameAR, nameEN, detailesAr, detailesEn, available, availableKilos, Discount, quantity, large_price, prebriation, MenueId, base64, navigation, ExtraProduct)).then(() => setLoading(false))
 
         }
 
         else {
-            setSpinner(false);
+            setLoading(false);
             Toaster(_validate());
 
 
@@ -306,7 +308,7 @@ function AddProduct({ navigation }) {
 
         <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? "padding" : 'height'} style={{ backgroundColor: 'white', flex: 1 }}>
 
-            <ScrollView style={{ flex: 1, backgroundColor: Colors.bg }}>
+            <ScrollView style={{ flex: 1, backgroundColor: Colors.bg }} showsVerticalScrollIndicator={false}>
                 <Header navigation={navigation} label={i18n.t('AddPro')} />
                 <Container loading={spinner}>
 
@@ -380,45 +382,48 @@ function AddProduct({ navigation }) {
                         value={prebriation}
                     />
 
-                    <View style={{ height: width * .14, marginHorizontal: '4%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
-                        <View style={{ paddingEnd: 150, fontFamily: 'flatMedium', paddingStart: 15 }}>
+                    <View style={{ height: width * .14, marginHorizontal: '5%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15 }}>
+                        <View >
                             <Text style={{ color: Colors.fontNormal, fontFamily: 'flatMedium', }}>{i18n.t('available')}</Text>
                         </View>
-                        {
-                            data.map((item, index) => {
-                                return (
-                                    <TouchableOpacity onPress={() => { setavailable(item.id) }} key={index.toString()} style={{ flexDirection: 'row', justifyContent: 'center', padding: 5, }}>
-                                        <View style={{
-                                            height: 15,
-                                            width: 15,
-                                            borderRadius: 12,
-                                            borderWidth: 2,
-                                            borderColor: available === item.id ? Colors.sky : Colors.fontNormal,
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            alignSelf: 'center',
+                        <View style={{ flexDirection: 'row' }}>
+                            {
+                                data.map((item, index) => {
+                                    return (
+                                        <TouchableOpacity onPress={() => { setavailable(item.id) }} key={index.toString()} style={{ flexDirection: 'row', justifyContent: 'center', padding: 5, }}>
+                                            <View style={{
+                                                height: 15,
+                                                width: 15,
+                                                borderRadius: 12,
+                                                borderWidth: 2,
+                                                borderColor: available === item.id ? Colors.sky : Colors.fontNormal,
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                alignSelf: 'center',
 
-                                        }}>
-                                            {
-                                                available === item.id ?
-                                                    <View style={{
-                                                        height: 6,
-                                                        width: 6,
-                                                        borderRadius: 6,
-                                                        backgroundColor: Colors.sky,
-                                                    }} />
-                                                    : null
-                                            }
-                                        </View>
-                                        <Text style={[styles.sText, { color: available === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, padding: 7 }]}>{item.title}</Text>
+                                            }}>
+                                                {
+                                                    available === item.id ?
+                                                        <View style={{
+                                                            height: 6,
+                                                            width: 6,
+                                                            borderRadius: 6,
+                                                            backgroundColor: Colors.sky,
+                                                        }} />
+                                                        : null
+                                                }
+                                            </View>
+                                            <Text style={[styles.sText, { color: available === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, padding: 7 }]}>{item.title}</Text>
 
-                                    </TouchableOpacity>
+                                        </TouchableOpacity>
 
 
 
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
+                        </View>
+
 
                     </View>
 
@@ -465,6 +470,7 @@ function AddProduct({ navigation }) {
                         onChangeText={(e) => setDetailesAr(e)}
                         value={detailesAr}
                         LabelStyle={{ bottom: width * .32 }}
+                        inputStyle={{ paddingTop: Platform.OS == 'ios' ? 25 : 0 }}
                     />
 
 
@@ -477,6 +483,8 @@ function AddProduct({ navigation }) {
                         onChangeText={(e) => setDetailesEn(e)}
                         value={detailesEn}
                         LabelStyle={{ fontSize: 14, bottom: width * .32, }}
+                        inputStyle={{ paddingTop: Platform.OS == 'ios' ? 25 : 0 }}
+
                     />
 
 
@@ -502,8 +510,10 @@ function AddProduct({ navigation }) {
                     }
 
                     <SText title={`+ ${i18n.t('AddSpecialProduct')}`} onPress={() => setEditMaodVisible(true)} style={{ color: Colors.sky, fontSize: 15, marginVertical: 20, marginTop: 0, textAlign: 'left', marginHorizontal: '5%' }} />
+                    <Container loading={loading}>
+                        <BTN title={`+ ${i18n.t('Add')}`} ContainerStyle={styles.LoginBtn} onPress={Add_Product} />
 
-                    <BTN title={`+ ${i18n.t('Add')}`} ContainerStyle={styles.LoginBtn} onPress={Add_Product} />
+                    </Container>
                     <View style={styles.centeredView}>
                         <Modal
                             animationType="slide"

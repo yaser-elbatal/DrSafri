@@ -21,6 +21,8 @@ function Fregister({ navigation }) {
     const [selectedRadion, setSelectedRadio] = useState(null)
     const Validation = useSelector(state => state.auth.Validate ? state.auth.Validate.success : false);
 
+    const [showPass2, setShowPass2] = useState(false);
+    const [showPass, setShowPass] = useState(false);
 
     const [data, setData] = useState([
 
@@ -114,7 +116,9 @@ function Fregister({ navigation }) {
                     placeholder={i18n.t('password')}
                     onChangeText={(e) => setPassword(e)}
                     value={password}
-                    secureTextEntry
+                    secureTextEntry={!showPass}
+                    image={require('../../assets/Images/view.png')}
+                    onPress={() => setShowPass(!showPass)}
                     styleCont={{ marginTop: 0 }}
 
 
@@ -125,50 +129,55 @@ function Fregister({ navigation }) {
                     placeholder={i18n.t('confirmPass')}
                     onChangeText={(e) => setConfirmPassword(e)}
                     value={confirmPassword}
-                    secureTextEntry
+                    secureTextEntry={!showPass2}
+                    image={require('../../assets/Images/view.png')}
+                    onPress={() => setShowPass2(!showPass2)}
 
                     styleCont={{ marginTop: 0 }}
                 />
 
-                <View style={{ height: width * .14, marginHorizontal: '5%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
-                    <View style={{ paddingEnd: 95, fontFamily: 'flatMedium', paddingStart: 10 }}>
-                        <Text style={{ color: Colors.inputTextMainColor, fontFamily: 'flatMedium' }}>{i18n.t('owner')}</Text>
+                <View style={{ height: width * .14, marginHorizontal: '5%', borderColor: Colors.InputColor, borderWidth: .9, borderRadius: 5, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15 }}>
+                    <View >
+                        <Text style={{ color: Colors.fontNormal, fontFamily: 'flatMedium' }}>{i18n.t('owner')}</Text>
                     </View>
-                    {
-                        data.map((item, index) => {
-                            return (
-                                <TouchableOpacity onPress={() => { setSelectedRadio(item.id) }} key={index} style={{ flexDirection: 'row', justifyContent: 'center', padding: 10, }}>
-                                    <View style={{
-                                        height: 15,
-                                        width: 15,
-                                        borderRadius: 12,
-                                        borderWidth: 2,
-                                        borderColor: selectedRadion === item.id ? Colors.sky : Colors.fontNormal,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        alignSelf: 'center',
+                    <View style={{ flexDirection: 'row' }}>
+                        {
+                            data.map((item, index) => {
+                                return (
+                                    <TouchableOpacity onPress={() => { setSelectedRadio(item.id) }} key={index} style={{ flexDirection: 'row', justifyContent: 'center', padding: 10, }}>
+                                        <View style={{
+                                            height: 15,
+                                            width: 15,
+                                            borderRadius: 12,
+                                            borderWidth: 2,
+                                            borderColor: selectedRadion === item.id ? Colors.sky : Colors.fontNormal,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            alignSelf: 'center',
 
-                                    }}>
-                                        {
-                                            selectedRadion === item.id ?
-                                                <View style={{
-                                                    height: 6,
-                                                    width: 6,
-                                                    borderRadius: 6,
-                                                    backgroundColor: Colors.sky,
-                                                }} />
-                                                : null
-                                        }
-                                    </View>
-                                    <Text style={[styles.sText, { color: selectedRadion === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, fontFamily: 'flatMedium' }]}>{item.title}</Text>
+                                        }}>
+                                            {
+                                                selectedRadion === item.id ?
+                                                    <View style={{
+                                                        height: 6,
+                                                        width: 6,
+                                                        borderRadius: 6,
+                                                        backgroundColor: Colors.sky,
+                                                    }} />
+                                                    : null
+                                            }
+                                        </View>
+                                        <Text style={[styles.sText, { color: selectedRadion === item.id ? Colors.sky : Colors.fontNormal, left: 6, bottom: 1, fontFamily: 'flatMedium' }]}>{item.title}</Text>
 
-                                </TouchableOpacity>
+                                    </TouchableOpacity>
 
 
 
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+
+                    </View>
 
                 </View>
                 <BTN title={i18n.t('continue')} ContainerStyle={styles.LoginBtn} onPress={NavigateToNext} disabled={!Validation} />

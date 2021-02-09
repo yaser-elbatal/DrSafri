@@ -29,8 +29,8 @@ function ChooseLang({ navigation }) {
     return (
         <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: Colors.bg }}>
             <Animatable.View animation="fadeInUpBig" easing="ease-out" direction="alternate" delay={500} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }} >
-                <Image source={require('../../assets/Images/Dr.png')} style={{ height: 200, width: 400 }} />
-                <Text style={{ fontFamily: 'flatMedium', fontSize: 20 }}>{i18n.t('chooseLange')}</Text>
+                <Image source={require('../../assets/Images/logo_sofri.png')} style={{ height: 200, width: 400 }} resizeMode='contain' />
+                <Text style={{ fontFamily: 'flatMedium', fontSize: 20, }}>{i18n.t('chooseLange')}</Text>
 
                 <TouchableOpacity onPress={() => { changeLang("ar", "RTL") }} style={{ borderWidth: 1, borderColor: lang == 'ar' ? Colors.sky : '#F7F7F7', backgroundColor: '#F7F7F7', width: 200, height: 150, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: 10, flexDirection: 'column' }}>
                     <Image source={require('../../assets/Images/saudi_arabia.png')} style={{ height: 100, width: 100 }} resizeMode='contain' />

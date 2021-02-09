@@ -36,7 +36,7 @@ function ManageAccount({ navigation }) {
     }, [navigation]);
 
 
-
+    console.log(ManAcc);
 
     return (
         <ScrollView style={{ flex: 1 }}>
@@ -52,7 +52,7 @@ function ManageAccount({ navigation }) {
                         :
                         ManAcc.map((item, index) => {
                             return (
-                                <TouchableOpacity onPress={() => navigation.navigate('OrderManageAccDetailes', { OrderId: item.order_id })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('OrderDetailes', { OrderId: item.order_id })}>
                                     <View style={styles.card}>
                                         <View style={{ margin: 10 }}>
                                             <Text style={styles.Text}>{i18n.t('num')} #{index + 1}</Text>
@@ -61,16 +61,22 @@ function ManageAccount({ navigation }) {
                                                     <Text style={styles.sText}>{i18n.t('total')}  </Text>
                                                     <Text style={styles.sText}>{i18n.t('OrderPrice')}</Text>
                                                     <Text style={styles.sText}>{i18n.t('Commission')}</Text>
+                                                    <Text style={styles.sText}>{i18n.t('statue')}</Text>
+
                                                 </View>
                                                 <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                                     <Text style={{ marginVertical: 5 }}>:</Text>
                                                     <Text style={{ marginVertical: 5 }}>:</Text>
                                                     <Text style={{ marginVertical: 5 }}>:</Text>
+                                                    <Text style={{ marginVertical: 5 }}>:</Text>
+
                                                 </View>
                                                 <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                                     <Text style={styles.sText}>{item.price + item.commission.toFixed(2)} {i18n.t('Rial')}</Text>
                                                     <Text style={styles.sText}>{item.price}  {i18n.t('Rial')}</Text>
                                                     <Text style={styles.sText}>{item.commission.toFixed(2)}  {i18n.t('Rial')}</Text>
+                                                    <Text style={styles.sText}>{item.settlement}</Text>
+
                                                 </View>
                                             </View>
 

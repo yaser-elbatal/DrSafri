@@ -82,7 +82,7 @@ const ProductDet = ({ navigation, route }) => {
                         </ImageBackground>
                         <View style={styles.ScrolContainer}>
                             <ScrollView style={{ flex: 1, margin: 20, marginTop: 0 }} showsVerticalScrollIndicator={false}>
-                                <Text style={[styles.num, { marginBottom: 0, paddingVertical: 0, marginTop: 10, color: Colors.IconBlack, alignSelf: 'flex-start' }]}>{i18n.t('num')} #{ProductDetA.id}</Text>
+                                <Text style={[styles.num, { marginBottom: 0, paddingVertical: 0, marginTop: 30, color: Colors.IconBlack, alignSelf: 'flex-start' }]}>{i18n.t('num')} #{ProductDetA.id}</Text>
 
                                 <View style={{ flexDirection: 'column', justifyContent: 'center', }}>
                                     <View style={styles.Wrab}>
@@ -109,14 +109,15 @@ const ProductDet = ({ navigation, route }) => {
                                                     <Text style={[styles.num, { textDecorationLine: 'line-through', textDecorationColor: Colors.RedColor, textDecorationStyle: 'solid', color: Colors.RedColor, paddingHorizontal: 15, fontSize: 16 }]}>{ProductDetA.price} {i18n.t('Rial')}</Text>
 
                                             }
-                                            {
-                                                ProductDetA.available_kilos == 0 ?
-                                                    null :
-                                                    <Text style={[styles.num, { color: Colors.IconBlack, paddingHorizontal: 3 }]}>({i18n.t('Availablekilos') + ' : ' + ProductDetA.available_kilos})</Text>
-
-                                            }
 
                                         </View>
+                                        {
+                                            ProductDetA.available_kilos == 0 ?
+                                                null :
+                                                <Text style={[styles.num, { color: Colors.IconBlack, paddingHorizontal: 3 }]}>{i18n.t('Availablekilos') + ' : ' + ProductDetA.available_kilos}</Text>
+
+                                        }
+
                                         <Text style={[styles.num, { color: Colors.IconBlack }]}>{i18n.t('preparationTime')} : {ProductDetA.time}</Text>
 
 
