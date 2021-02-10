@@ -47,7 +47,7 @@ const ProductDet = ({ navigation, route }) => {
                     width: '100%',
                     height: '100%',
                     zIndex: 1,
-                    backgroundColor: '#23232387',
+                    backgroundColor: 'white',
                     position: 'absolute',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -62,7 +62,7 @@ const ProductDet = ({ navigation, route }) => {
     return (
 
 
-        <Animatable.View animation="pulse" easing="ease-out" delay={500} style={{ flex: 1 }}>
+        <Animatable.View animation="pulse" easing="ease-out" delay={1500} style={{ flex: 1 }}>
             {renderLoader()}
             {
                 !ProductDetA ? null :

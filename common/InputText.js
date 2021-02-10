@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
         textAlign: I18nManager.isRTL ? "right" : "left",
         fontFamily: "flatMedium",
         fontSize: 16,
+        fontWeight: 'normal',
     },
     image: {
         width: width * 0.04,
